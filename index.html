@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ── Variables ─────────────────────────────────────────── */
     :root {
       --cream:      #FCFBF9;
       --blue:       #3D5A80;
@@ -16,10 +15,8 @@
       --blue-light: #8B9EB7;
       --gold:       #C9A84C;
       --gold-light: #E8CE80;
-      --gold-shine: #FFF7CC;
     }
 
-    /* ── Reset ─────────────────────────────────────────────── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
@@ -30,7 +27,6 @@
       overflow: hidden;
     }
 
-    /* ── Page container (scroll-snap) ───────────────────────── */
     .page-container {
       height: 100dvh;
       overflow-y: scroll;
@@ -51,7 +47,7 @@
       background: var(--cream);
     }
 
-    /* ── Nav dots ───────────────────────────────────────────── */
+    /* ── Nav dots ── */
     .nav-dots {
       position: fixed;
       right: 18px;
@@ -63,8 +59,7 @@
       z-index: 200;
     }
     .nav-dot {
-      width: 7px;
-      height: 7px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       border: 1.5px solid var(--blue-light);
       cursor: pointer;
@@ -77,7 +72,7 @@
       transform: scale(1.3);
     }
 
-    /* ── Shared Typography ──────────────────────────────────── */
+    /* ── Shared ── */
     .caps {
       font-family: 'Montserrat', sans-serif;
       text-transform: uppercase;
@@ -86,76 +81,12 @@
       font-weight: 400;
       color: var(--blue-light);
     }
-    .caps-blue {
-      font-family: 'Montserrat', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      font-size: 0.6rem;
-      font-weight: 500;
-      color: var(--blue);
-    }
-
-    /* ── Reveal animation ───────────────────────────────────── */
     .fade-up {
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ══════════════════════════════════════════════════════════
-       SECTION 2  —  Introduction & Names
-       ══════════════════════════════════════════════════════════ */
-    #intro {
-      text-align: center;
-      gap: 28px;
-    }
-
-    #intro .header-text {
-      color: var(--blue-light);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 400;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      line-height: 2;
-      max-width: 300px;
-    }
-
-    .names-stack {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      line-height: 1;
-      gap: 4px;
-    }
-
-    .name-script {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(4.5rem, 18vw, 8rem);
-      color: var(--blue);
-      line-height: 1.05;
-    }
-
-    .ampersand {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(1.8rem, 7vw, 3rem);
-      color: var(--gold);
-      line-height: 1.4;
-    }
-
-    #intro .footer-text {
-      font-style: italic;
-      font-size: clamp(0.95rem, 3.5vw, 1.15rem);
-      color: var(--blue-light);
-      max-width: 300px;
-      line-height: 2;
-    }
-
-    /* Decorative dividers */
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
     .divider {
       display: flex;
       align-items: center;
@@ -164,274 +95,21 @@
       max-width: 280px;
     }
     .divider-line {
-      flex: 1;
-      height: 1px;
+      flex: 1; height: 1px;
       background: linear-gradient(to right, transparent, var(--blue-light), transparent);
     }
     .divider-diamond {
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       background: var(--gold);
       transform: rotate(45deg);
       flex-shrink: 0;
     }
-
-    /* ══════════════════════════════════════════════════════════
-       SECTION 3  —  Scratch-Off Reveal
-       ══════════════════════════════════════════════════════════ */
-    #scratch {
-      text-align: center;
-      gap: 20px;
-    }
-
-    #scratch .pillar-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    #scratch .reveal-title {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(3rem, 12vw, 5rem);
-      color: var(--blue);
-      line-height: 1;
-    }
-
-    #scratch .scratch-hint {
-      color: var(--blue-light);
-      margin-top: -6px;
-    }
-
-    .scratch-circles-row {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      align-items: center;
-      margin: 16px 0;
-    }
-
-    .scratch-wrapper {
-      position: relative;
-      width: 92px;
-      height: 92px;
-      border-radius: 50%;
-      overflow: hidden; /* clips canvas drawing */
-    }
-
-    .scratch-reveal-layer {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background: #fff;
-      border: 2px solid var(--blue);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
-
-    .scratch-reveal-layer .rv-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.1rem;
-      font-weight: 600;
-      color: var(--blue);
-      line-height: 1;
-    }
-    .scratch-reveal-layer .rv-label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.5rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--blue-light);
-      margin-top: 3px;
-    }
-
-    .scratch-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      cursor: crosshair;
-      touch-action: none;
-      border-radius: 50%;
-    }
-
-    #scratch .scratch-footer {
-      font-style: italic;
-      color: var(--blue-light);
-      font-size: 0.9rem;
-      margin-top: -4px;
-    }
-
-    /* Gold shimmer keyframe for canvas placeholder */
-    @keyframes goldShimmer {
-      0%   { opacity: 1; }
-      50%  { opacity: 0.85; }
-      100% { opacity: 1; }
-    }
-
-    /* confetti canvas */
-    #confetti-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-      display: none;
-    }
-
-    /* ══════════════════════════════════════════════════════════
-       SECTION 4  —  Venue
-       ══════════════════════════════════════════════════════════ */
-    #venue {
-      text-align: center;
-      gap: 14px;
-    }
-
-    #venue .venue-name {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2.8rem, 11vw, 5rem);
-      color: var(--blue);
-      line-height: 1.05;
-    }
-
-    #venue .venue-city {
-      letter-spacing: 0.3em;
-      color: var(--blue-light);
-      margin-top: -4px;
-    }
-
-    .cathedral-art {
-      width: 100%;
-      max-width: 340px;
-      filter: drop-shadow(0 4px 20px rgba(61,90,128,0.08));
-    }
-
-    .maps-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 32px;
-      border: 1.5px solid var(--blue);
-      border-radius: 100px;
-      color: var(--blue);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      text-decoration: none;
-      background: transparent;
-      transition: background 0.3s, color 0.3s;
-      cursor: pointer;
-    }
-    .maps-btn:hover {
-      background: var(--blue);
-      color: var(--cream);
-    }
-    .maps-btn svg { flex-shrink: 0; }
-
-    /* ══════════════════════════════════════════════════════════
-       SECTION 5  —  Events Timeline
-       ══════════════════════════════════════════════════════════ */
-    #timeline {
-      text-align: center;
-      gap: 24px;
-      padding-bottom: 64px;
-    }
-
-    .timeline-heading {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .timeline-heading .flourish-svg { opacity: 0.45; }
-
-    #timeline .section-title {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2.4rem, 9vw, 4rem);
-      color: var(--blue);
-      line-height: 1;
-    }
-
-    .tl-list {
-      list-style: none;
-      width: 100%;
-      max-width: 380px;
-      text-align: left;
-    }
-
-    .tl-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 18px;
-      padding: 18px 0;
-      position: relative;
-    }
-    .tl-item:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      left: 28px;
-      top: 62px;
-      width: 1px;
-      height: calc(100% - 46px);
-      background: linear-gradient(to bottom, var(--blue-light) 0%, transparent 100%);
-      opacity: 0.35;
-    }
-
-    .tl-icon {
-      width: 56px;
-      height: 56px;
-      border: 1px solid var(--blue-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      background: var(--cream);
-    }
-
-    .tl-content { flex: 1; padding-top: 4px; }
-
-    .tl-time {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: var(--blue);
-      line-height: 1;
-    }
-
-    .tl-event {
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.75rem;
-      color: var(--blue);
-      line-height: 1.15;
-    }
-
-    .tl-sub {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.55rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--blue-light);
-      margin-top: 2px;
-    }
-
-    /* ── Scroll-down caret ─────────────────────────────────── */
     .scroll-caret {
       position: absolute;
-      bottom: 28px;
-      left: 50%;
+      bottom: 28px; left: 50%;
       transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 4px;
       opacity: 0.35;
       animation: caretBounce 1.8s ease-in-out infinite;
     }
@@ -446,30 +124,360 @@
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50%       { transform: translateX(-50%) translateY(6px); }
     }
+
+    /* ══════════════════════════════════
+       S1 — Intro
+       ══════════════════════════════════ */
+    #intro { text-align: center; gap: 28px; }
+    .name-script {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(4.5rem, 18vw, 8rem);
+      color: var(--blue);
+      line-height: 1.05;
+    }
+    .ampersand {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.8rem, 7vw, 3rem);
+      color: var(--gold);
+      line-height: 1.4;
+    }
+    .names-stack {
+      display: flex; flex-direction: column;
+      align-items: center; line-height: 1; gap: 4px;
+    }
+
+    /* ══════════════════════════════════
+       S2 — Countdown
+       ══════════════════════════════════ */
+    #countdown { text-align: center; gap: 18px; }
+
+    .cd-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .cd-eyebrow-line {
+      width: 36px; height: 1px;
+      background: var(--blue-light); opacity: 0.5;
+    }
+    .cd-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 12vw, 5.5rem);
+      color: var(--blue); line-height: 1;
+    }
+    .cd-date-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.85rem, 3.2vw, 1.05rem);
+      color: var(--blue-light);
+      font-style: italic; letter-spacing: 0.08em;
+    }
+    .cd-grid {
+      display: flex; gap: 10px;
+      justify-content: center; align-items: flex-start;
+    }
+    .cd-unit {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 6px;
+    }
+    .cd-box {
+      width: clamp(60px, 17vw, 80px);
+      height: clamp(60px, 17vw, 80px);
+      background: linear-gradient(145deg, #f0ede8, #e8e4de);
+      border: 1px solid rgba(61,90,128,0.15);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(61,90,128,0.07), inset 0 1px 0 rgba(255,255,255,0.7);
+      position: relative; overflow: hidden;
+    }
+    .cd-box::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 50%;
+      background: rgba(255,255,255,0.18);
+      border-radius: 12px 12px 0 0;
+    }
+    .cd-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.7rem, 6vw, 2.6rem);
+      font-weight: 600; color: var(--blue); line-height: 1;
+      position: relative; z-index: 1;
+      transition: transform 0.15s ease;
+    }
+    .cd-num.flip { transform: scale(0.85); }
+    .cd-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--blue-light);
+    }
+    .cd-sep {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+      font-weight: 300; color: var(--gold);
+      margin-top: clamp(10px, 3.5vw, 16px); line-height: 1;
+    }
+    .cd-done-msg {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      color: var(--gold); display: none;
+    }
+
+    /* Add to Calendar */
+    .cal-block {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 10px;
+      margin-top: 4px;
+    }
+    .cal-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.54rem; font-weight: 400;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--blue-light);
+    }
+    .cal-btns {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cal-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 8px 18px;
+      border: 1px solid rgba(61,90,128,0.3);
+      border-radius: 100px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.56rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--blue);
+      background: transparent;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.25s;
+    }
+    .cal-btn:hover {
+      background: var(--blue); color: var(--cream);
+      border-color: var(--blue);
+    }
+    .cal-btn svg { flex-shrink: 0; }
+
+    /* ══════════════════════════════════
+       S3 — Parents
+       ══════════════════════════════════ */
+    #parents { text-align: center; gap: 18px; }
+
+    .parents-grid {
+      display: flex; flex-direction: column; gap: 18px;
+      width: 100%; max-width: 360px;
+    }
+    .parent-card {
+      background: rgba(61,90,128,0.03);
+      border: 1px solid rgba(61,90,128,0.1);
+      border-radius: 16px;
+      padding: 20px 22px 18px;
+      text-align: center; position: relative;
+    }
+    .parent-card .pc-role {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.52rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .parent-card .pc-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.6rem, 6.5vw, 2.4rem);
+      color: var(--blue); line-height: 1.2;
+    }
+    .parent-card .pc-amp { color: var(--gold); }
+    .parent-card .pc-address {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.8rem, 3vw, 1rem);
+      color: var(--blue-light);
+      font-style: italic; line-height: 1.7; margin-top: 6px;
+    }
+    .grandparents-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+      color: var(--blue-light); font-style: italic;
+      line-height: 1.9; max-width: 330px; text-align: center;
+    }
+
+    /* ══════════════════════════════════
+       S4 — Venue
+       ══════════════════════════════════ */
+    #venue { text-align: center; gap: 14px; }
+    #venue .venue-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.8rem, 11vw, 5rem);
+      color: var(--blue); line-height: 1.05;
+    }
+    .cathedral-art {
+      width: 100%; max-width: 340px;
+      filter: drop-shadow(0 4px 20px rgba(61,90,128,0.08));
+    }
+    .maps-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 32px;
+      border: 1.5px solid var(--blue); border-radius: 100px;
+      color: var(--blue);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.62rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.18em;
+      text-decoration: none; background: transparent;
+      transition: background 0.3s, color 0.3s; cursor: pointer;
+    }
+    .maps-btn:hover { background: var(--blue); color: var(--cream); }
+    .maps-btn svg { flex-shrink: 0; }
+
+    /* ══════════════════════════════════
+       S5 — Timeline
+       ══════════════════════════════════ */
+    #timeline { text-align: center; gap: 24px; padding-bottom: 60px; }
+
+    .timeline-heading { display: flex; align-items: center; gap: 14px; }
+    .timeline-heading .flourish-svg { opacity: 0.45; }
+    #timeline .section-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.4rem, 9vw, 4rem);
+      color: var(--blue); line-height: 1;
+    }
+    .tl-list { list-style: none; width: 100%; max-width: 400px; text-align: left; }
+    .tl-item {
+      display: flex; align-items: flex-start;
+      gap: 16px; padding: 18px 0; position: relative;
+    }
+    .tl-item:not(:last-child)::after {
+      content: '';
+      position: absolute; left: 28px; top: 62px;
+      width: 1px; height: calc(100% - 46px);
+      background: linear-gradient(to bottom, var(--blue-light) 0%, transparent 100%);
+      opacity: 0.35;
+    }
+    .tl-icon {
+      width: 56px; height: 56px;
+      border: 1px solid var(--blue-light); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; background: var(--cream);
+    }
+    .tl-content { flex: 1; padding-top: 4px; }
+    .tl-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 600;
+      color: var(--blue); line-height: 1;
+    }
+    .tl-event {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.75rem; color: var(--blue); line-height: 1.15;
+    }
+    .tl-officiant {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.72rem, 2.6vw, 0.86rem);
+      color: var(--blue-light); font-style: italic;
+      line-height: 1.5; margin-top: 2px;
+    }
+
+    /* Location thumbnail */
+    .tl-location {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 10px;
+      background: rgba(61,90,128,0.035);
+      border: 1px solid rgba(61,90,128,0.12);
+      border-radius: 12px;
+      padding: 8px 10px;
+      text-decoration: none;
+      transition: background 0.25s;
+    }
+    .tl-location:hover { background: rgba(61,90,128,0.07); }
+
+    .tl-loc-thumb {
+      width: 52px; height: 52px;
+      border-radius: 8px;
+      overflow: hidden; flex-shrink: 0;
+      border: 1px solid rgba(61,90,128,0.1);
+    }
+    .tl-loc-thumb svg { width: 100%; height: 100%; display: block; }
+
+    .tl-loc-info {
+      flex: 1;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .tl-loc-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.82rem, 3vw, 0.96rem);
+      font-weight: 600; color: var(--blue); line-height: 1.2;
+    }
+    .tl-loc-addr {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue-light);
+    }
+    .tl-loc-dir {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); margin-top: 2px;
+    }
+
+    /* ══════════════════════════════════
+       S6 — Sharing Happiness
+       ══════════════════════════════════ */
+    #happiness { text-align: center; gap: 18px; }
+
+    .happiness-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.58rem; font-weight: 400;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--blue-light);
+    }
+    .happiness-grid {
+      display: flex; gap: 20px;
+      justify-content: center; flex-wrap: wrap;
+      max-width: 360px;
+    }
+    .happiness-person {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
+    }
+    .hp-avatar {
+      width: 76px; height: 76px; border-radius: 50%;
+      background: linear-gradient(145deg, rgba(61,90,128,0.06), rgba(61,90,128,0.12));
+      border: 1.5px solid rgba(61,90,128,0.18);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hp-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.5rem, 6vw, 2rem);
+      color: var(--blue); line-height: 1;
+    }
+    .hp-relation {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5rem; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--blue-light); margin-top: -4px;
+    }
+    .psalm-block {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; color: var(--blue-light);
+      font-size: clamp(0.82rem, 3vw, 1rem);
+      line-height: 2; text-align: center; max-width: 300px;
+      border-top: 1px solid rgba(61,90,128,0.12);
+      padding-top: 18px;
+    }
+    .psalm-block .psalm-ref {
+      font-size: 0.68rem; letter-spacing: 0.12em; display: block; margin-top: 2px;
+    }
   </style>
 </head>
 <body>
 
-<!-- ── Navigation dots ───────────────────────────────────────── -->
 <nav class="nav-dots" aria-label="Page navigation">
-  <div class="nav-dot active" data-target="intro"   title="Introduction"></div>
-  <div class="nav-dot"        data-target="scratch" title="Date Reveal"></div>
-  <div class="nav-dot"        data-target="venue"   title="Venue"></div>
-  <div class="nav-dot"        data-target="timeline" title="Timeline"></div>
+  <div class="nav-dot active" data-target="intro"     title="Introduction"></div>
+  <div class="nav-dot"        data-target="countdown" title="Countdown"></div>
+  <div class="nav-dot"        data-target="parents"   title="Parents"></div>
+  <div class="nav-dot"        data-target="venue"     title="Venue"></div>
+  <div class="nav-dot"        data-target="timeline"  title="Timeline"></div>
+  <div class="nav-dot"        data-target="happiness" title="Sharing Happiness"></div>
 </nav>
-
-<!-- ── Confetti canvas ───────────────────────────────────────── -->
-<canvas id="confetti-canvas"></canvas>
 
 <div class="page-container" id="scroller">
 
-  <!-- ════════════════════════════════════════════════════════
-       SECTION 2  —  Introduction & Names
-       ════════════════════════════════════════════════════════ -->
+  <!-- ══ S1 — Intro ══ -->
   <section id="intro">
 
-    <!-- Corner botanical: top-right -->
-    <svg class="corner-botanical top-right" style="position:absolute;top:0;right:0;width:140px;opacity:0.18;" viewBox="0 0 160 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg style="position:absolute;top:0;right:0;width:140px;opacity:0.18;" viewBox="0 0 160 180" fill="none" aria-hidden="true">
       <path d="M140 10 Q120 40 80 60 Q50 75 20 100" stroke="#3D5A80" stroke-width="1.2" fill="none"/>
       <ellipse cx="80" cy="60" rx="16" ry="9" fill="#3D5A80" opacity="0.6" transform="rotate(-30 80 60)"/>
       <ellipse cx="105" cy="38" rx="12" ry="7" fill="#3D5A80" opacity="0.5" transform="rotate(-10 105 38)"/>
@@ -477,24 +485,23 @@
       <path d="M100 25 Q110 15 130 8" stroke="#3D5A80" stroke-width="0.9" fill="none"/>
       <path d="M60 72 Q45 85 25 95" stroke="#3D5A80" stroke-width="0.9" fill="none"/>
     </svg>
-
-    <!-- Corner botanical: bottom-left -->
-    <svg class="corner-botanical bottom-left" style="position:absolute;bottom:0;left:0;width:130px;opacity:0.18;" viewBox="0 0 160 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg style="position:absolute;bottom:0;left:0;width:130px;opacity:0.18;" viewBox="0 0 160 180" fill="none" aria-hidden="true">
       <path d="M20 170 Q40 140 70 120 Q100 100 140 80" stroke="#3D5A80" stroke-width="1.2" fill="none"/>
       <ellipse cx="70" cy="120" rx="16" ry="9" fill="#3D5A80" opacity="0.6" transform="rotate(30 70 120)"/>
       <ellipse cx="45" cy="142" rx="12" ry="7" fill="#3D5A80" opacity="0.5" transform="rotate(10 45 142)"/>
       <ellipse cx="105" cy="98" rx="14" ry="8" fill="#3D5A80" opacity="0.45" transform="rotate(50 105 98)"/>
-      <path d="M30 158 Q20 168 10 172" stroke="#3D5A80" stroke-width="0.9" fill="none"/>
     </svg>
 
-    <p class="header-text fade-up" style="transition-delay:0.1s">
+    <p class="fade-up" style="
+        color:var(--blue-light);font-family:'Montserrat',sans-serif;
+        font-size:0.6rem;font-weight:400;letter-spacing:0.22em;
+        text-transform:uppercase;line-height:2;max-width:300px;text-align:center;
+        transition-delay:0.1s">
       The joy we share<br/>to celebrate the wedding of
     </p>
 
     <div class="divider fade-up" style="transition-delay:0.2s">
-      <div class="divider-line"></div>
-      <div class="divider-diamond"></div>
-      <div class="divider-line"></div>
+      <div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div>
     </div>
 
     <div class="names-stack fade-up" style="transition-delay:0.35s">
@@ -504,391 +511,317 @@
     </div>
 
     <div class="divider fade-up" style="transition-delay:0.5s">
-      <div class="divider-line"></div>
-      <div class="divider-diamond"></div>
-      <div class="divider-line"></div>
+      <div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div>
     </div>
 
-    <p class="footer-text fade-up" style="transition-delay:0.65s">
+    <p class="fade-up" style="
+        font-style:italic;font-size:clamp(0.95rem,3.5vw,1.15rem);
+        color:var(--blue-light);max-width:300px;line-height:2;text-align:center;
+        transition-delay:0.65s">
       We would love to invite you to celebrate<br/>with us the most special day of our lives.
     </p>
 
-    <div class="scroll-caret">
-      <span class="caret-label">Scroll</span>
-      <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
-        <path d="M1 1L8 8L15 1" stroke="#8B9EB7" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+    <div class="scroll-caret"><span class="caret-label">Scroll</span>
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 1L8 8L15 1" stroke="#8B9EB7" stroke-width="1.5" stroke-linecap="round"/></svg>
     </div>
-
   </section>
 
-  <!-- ════════════════════════════════════════════════════════
-       SECTION 3  —  Scratch-Off Reveal
-       ════════════════════════════════════════════════════════ -->
-  <section id="scratch">
+  <!-- ══ S2 — Countdown ══ -->
+  <section id="countdown">
 
-    <div class="pillar-wrapper fade-up" style="transition-delay:0.1s">
-      <!-- Roman pillar SVG icon -->
-      <svg width="44" height="80" viewBox="0 0 44 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Capital -->
-        <rect x="4" y="8" width="36" height="5" rx="1" stroke="#3D5A80" stroke-width="1.2" fill="none"/>
-        <rect x="0" y="4" width="44" height="5" rx="1" stroke="#3D5A80" stroke-width="1.2" fill="none"/>
-        <!-- Shaft with fluting lines -->
-        <rect x="10" y="13" width="24" height="52" rx="2" stroke="#3D5A80" stroke-width="1.2" fill="none"/>
-        <line x1="16" y1="13" x2="16" y2="65" stroke="#3D5A80" stroke-width="0.6" opacity="0.5"/>
-        <line x1="22" y1="13" x2="22" y2="65" stroke="#3D5A80" stroke-width="0.6" opacity="0.5"/>
-        <line x1="28" y1="13" x2="28" y2="65" stroke="#3D5A80" stroke-width="0.6" opacity="0.5"/>
-        <!-- Base -->
-        <rect x="6" y="65" width="32" height="5" rx="1" stroke="#3D5A80" stroke-width="1.2" fill="none"/>
-        <rect x="2" y="70" width="40" height="5" rx="1.5" stroke="#3D5A80" stroke-width="1.2" fill="none"/>
-      </svg>
+    <svg style="position:absolute;top:-60px;right:-60px;width:200px;opacity:0.04;" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <circle cx="100" cy="100" r="95" stroke="#3D5A80" stroke-width="2"/>
+      <circle cx="100" cy="100" r="80" stroke="#3D5A80" stroke-width="1"/>
+    </svg>
+
+    <div class="cd-eyebrow fade-up" style="transition-delay:0.05s">
+      <div class="cd-eyebrow-line"></div>
+      <span class="caps">Counting down to</span>
+      <div class="cd-eyebrow-line"></div>
     </div>
 
-    <span class="reveal-title fade-up" style="transition-delay:0.2s">Reveal</span>
-    <p class="caps scratch-hint fade-up" style="transition-delay:0.3s">Scratch to discover the date</p>
+    <span class="cd-title fade-up" style="transition-delay:0.15s">The Big Day</span>
 
-    <div class="scratch-circles-row fade-up" style="transition-delay:0.45s">
-      <!-- Circle 1: Day -->
-      <div class="scratch-wrapper" id="sw-0">
-        <div class="scratch-reveal-layer">
-          <span class="rv-num">19</span>
-          <span class="rv-label">Day</span>
-        </div>
-        <canvas class="scratch-canvas" id="sc-0" width="92" height="92"></canvas>
+    <p class="cd-date-line fade-up" style="transition-delay:0.25s">
+      Sunday, 19<sup>th</sup> April 2026 &nbsp;·&nbsp; 10:10 AM
+    </p>
+
+    <div class="cd-grid fade-up" style="transition-delay:0.35s">
+      <div class="cd-unit">
+        <div class="cd-box"><span class="cd-num" id="cd-days">--</span></div>
+        <span class="cd-label">Days</span>
       </div>
-      <!-- Circle 2: Month -->
-      <div class="scratch-wrapper" id="sw-1">
-        <div class="scratch-reveal-layer">
-          <span class="rv-num">APR</span>
-          <span class="rv-label">Month</span>
-        </div>
-        <canvas class="scratch-canvas" id="sc-1" width="92" height="92"></canvas>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-box"><span class="cd-num" id="cd-hours">--</span></div>
+        <span class="cd-label">Hours</span>
       </div>
-      <!-- Circle 3: Year -->
-      <div class="scratch-wrapper" id="sw-2">
-        <div class="scratch-reveal-layer">
-          <span class="rv-num">2026</span>
-          <span class="rv-label">Year</span>
-        </div>
-        <canvas class="scratch-canvas" id="sc-2" width="92" height="92"></canvas>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-box"><span class="cd-num" id="cd-mins">--</span></div>
+        <span class="cd-label">Minutes</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-box"><span class="cd-num" id="cd-secs">--</span></div>
+        <span class="cd-label">Seconds</span>
       </div>
     </div>
 
-    <p class="scratch-footer fade-up" style="transition-delay:0.55s">Sunday, 19<sup>th</sup> April 2026 · 10:10 AM</p>
+    <p class="cd-done-msg" id="cd-done">It's our Wedding Day!</p>
 
-    <div class="scroll-caret">
-      <span class="caret-label">Scroll</span>
-      <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
-        <path d="M1 1L8 8L15 1" stroke="#8B9EB7" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+    <!-- Add to Calendar -->
+    <div class="cal-block fade-up" style="transition-delay:0.5s">
+      <span class="cal-label">Add to calendar</span>
+      <div class="cal-btns">
+        <a id="btn-gcal" class="cal-btn" target="_blank" rel="noopener noreferrer">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Google
+        </a>
+        <button class="cal-btn" id="btn-ics">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Apple / Outlook
+        </button>
+      </div>
     </div>
 
+    <div class="scroll-caret"><span class="caret-label">Scroll</span>
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 1L8 8L15 1" stroke="#8B9EB7" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
   </section>
 
-  <!-- ════════════════════════════════════════════════════════
-       SECTION 4  —  Venue Illustration
-       ════════════════════════════════════════════════════════ -->
+  <!-- ══ S3 — Parents ══ -->
+  <section id="parents">
+
+    <svg style="position:absolute;top:0;left:0;width:120px;opacity:0.13;" viewBox="0 0 160 180" fill="none" aria-hidden="true">
+      <path d="M20 10 Q40 40 80 60 Q110 75 140 100" stroke="#3D5A80" stroke-width="1.2" fill="none"/>
+      <ellipse cx="80" cy="60" rx="16" ry="9" fill="#3D5A80" opacity="0.55" transform="rotate(30 80 60)"/>
+      <ellipse cx="50" cy="38" rx="12" ry="7" fill="#3D5A80" opacity="0.45" transform="rotate(10 50 38)"/>
+      <ellipse cx="110" cy="82" rx="14" ry="8" fill="#3D5A80" opacity="0.4" transform="rotate(50 110 82)"/>
+    </svg>
+
+    <span class="fade-up" style="
+        font-family:'Great Vibes',cursive;
+        font-size:clamp(2.4rem,10vw,4.5rem);
+        color:var(--blue);line-height:1;text-align:center;
+        transition-delay:0.1s">
+      With the Blessings of
+    </span>
+
+    <div class="parents-grid fade-up" style="transition-delay:0.25s">
+
+      <div class="parent-card">
+        <p class="pc-role">Groom's Parents</p>
+        <svg style="position:absolute;top:14px;right:14px;width:16px;opacity:0.18;" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true">
+          <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/>
+        </svg>
+        <p class="pc-names">Neena Paul <span class="pc-amp">&amp;</span> Paul Mathews</p>
+        <p class="pc-address">Eluvathingal Parapukara House<br/>U-Garden, Thrissur — 680 655</p>
+      </div>
+
+      <div class="parent-card">
+        <p class="pc-role">Bride's Parents</p>
+        <svg style="position:absolute;top:14px;right:14px;width:16px;opacity:0.18;" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true">
+          <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/>
+        </svg>
+        <p class="pc-names">Antony P.V. <span class="pc-amp">&amp;</span> Mini Antony</p>
+        <p class="pc-address">Pallipadan House<br/>Pudukkad, Thrissur</p>
+      </div>
+
+    </div>
+
+    <p class="grandparents-note fade-up" style="transition-delay:0.45s">
+      Grandson of Thressiamma &amp; Late P. K. Ittymathew<br/>
+      and T. C. Annie &amp; Late C. V. George, Kunnamkulam
+    </p>
+
+    <div class="scroll-caret"><span class="caret-label">Scroll</span>
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 1L8 8L15 1" stroke="#8B9EB7" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ══ S4 — Venue ══ -->
   <section id="venue">
 
     <span class="venue-name fade-up" style="transition-delay:0.1s">Marth Mariam Cathedral</span>
-    <p class="caps venue-city fade-up" style="transition-delay:0.2s">Thrissur</p>
+    <p class="caps fade-up" style="letter-spacing:0.3em;color:var(--blue-light);margin-top:-4px;transition-delay:0.2s">Thrissur</p>
 
-    <!-- Watercolor-style SVG Cathedral Illustration -->
     <svg class="cathedral-art fade-up" style="transition-delay:0.35s" viewBox="0 0 360 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Watercolor illustration of Marth Mariam Cathedral">
       <defs>
-        <!-- Soft sky wash -->
-        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#E8EFF7" stop-opacity="0.5"/>
-          <stop offset="100%" stop-color="#F5F0EA" stop-opacity="0.2"/>
-        </linearGradient>
-        <!-- Stone texture -->
-        <linearGradient id="stoneGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#D8DFEA"/>
-          <stop offset="100%" stop-color="#C4CDD9"/>
-        </linearGradient>
-        <!-- Tower gradient -->
-        <linearGradient id="towerGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%"   stop-color="#C8D2DF"/>
-          <stop offset="100%" stop-color="#B8C4D2"/>
-        </linearGradient>
-        <!-- Green wash for trees -->
-        <linearGradient id="greenGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#A8C4A0" stop-opacity="0.7"/>
-          <stop offset="100%" stop-color="#7EA876" stop-opacity="0.4"/>
-        </linearGradient>
-        <!-- Ground wash -->
-        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#B8C9A0" stop-opacity="0.4"/>
-          <stop offset="100%" stop-color="#F5F0EA" stop-opacity="0"/>
-        </linearGradient>
-        <!-- Vignette -->
-        <radialGradient id="vignette" cx="50%" cy="50%" r="55%">
-          <stop offset="0%"   stop-color="transparent"/>
-          <stop offset="100%" stop-color="#FCFBF9" stop-opacity="0.7"/>
-        </radialGradient>
-        <!-- Watercolor blur filter -->
-        <filter id="wcBlur">
-          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-        <filter id="softBlur">
-          <feGaussianBlur stdDeviation="1.2"/>
-        </filter>
+        <linearGradient id="skyGrad"    x1="0" y1="0" x2="0" y2="1"><stop offset="0%"   stop-color="#E8EFF7" stop-opacity="0.5"/><stop offset="100%" stop-color="#F5F0EA" stop-opacity="0.2"/></linearGradient>
+        <linearGradient id="stoneGrad"  x1="0" y1="0" x2="0" y2="1"><stop offset="0%"   stop-color="#D8DFEA"/><stop offset="100%" stop-color="#C4CDD9"/></linearGradient>
+        <linearGradient id="towerGrad"  x1="0" y1="0" x2="1" y2="0"><stop offset="0%"   stop-color="#C8D2DF"/><stop offset="100%" stop-color="#B8C4D2"/></linearGradient>
+        <linearGradient id="greenGrad"  x1="0" y1="0" x2="0" y2="1"><stop offset="0%"   stop-color="#A8C4A0" stop-opacity="0.7"/><stop offset="100%" stop-color="#7EA876" stop-opacity="0.4"/></linearGradient>
+        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%"   stop-color="#B8C9A0" stop-opacity="0.4"/><stop offset="100%" stop-color="#F5F0EA" stop-opacity="0"/></linearGradient>
+        <radialGradient id="vignette"  cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="transparent"/><stop offset="100%" stop-color="#FCFBF9" stop-opacity="0.7"/></radialGradient>
+        <filter id="wcBlur"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/></filter>
+        <filter id="softBlur"><feGaussianBlur stdDeviation="1.2"/></filter>
       </defs>
-
-      <!-- Sky background -->
       <rect width="360" height="280" fill="url(#skyGrad)"/>
-
-      <!-- ── Far background trees (hazy) ─────────── -->
       <ellipse cx="35"  cy="160" rx="22" ry="38" fill="#B8CCB0" opacity="0.35" filter="url(#softBlur)"/>
       <ellipse cx="55"  cy="152" rx="18" ry="42" fill="#A8C0A0" opacity="0.30" filter="url(#softBlur)"/>
       <ellipse cx="310" cy="158" rx="22" ry="38" fill="#B8CCB0" opacity="0.35" filter="url(#softBlur)"/>
       <ellipse cx="330" cy="150" rx="18" ry="42" fill="#A8C0A0" opacity="0.30" filter="url(#softBlur)"/>
-
-      <!-- ── Main building body ────────────────────── -->
-      <!-- Foundation/base platform -->
-      <rect x="60" y="200" width="240" height="12" rx="2" fill="#C0C8D4" opacity="0.6"/>
-      <!-- Steps -->
-      <rect x="90" y="208" width="180" height="4" rx="1" fill="#B8C2CE" opacity="0.5"/>
-      <rect x="110" y="212" width="140" height="4" rx="1" fill="#B0BAC6" opacity="0.4"/>
-
-      <!-- Main nave walls -->
+      <rect x="60"  y="200" width="240" height="12" rx="2" fill="#C0C8D4" opacity="0.6"/>
+      <rect x="90"  y="208" width="180" height="4"  rx="1" fill="#B8C2CE" opacity="0.5"/>
+      <rect x="110" y="212" width="140" height="4"  rx="1" fill="#B0BAC6" opacity="0.4"/>
       <rect x="80"  y="140" width="200" height="64" fill="url(#stoneGrad)" opacity="0.85"/>
-      <!-- Nave shading -->
-      <rect x="80"  y="140" width="12" height="64" fill="#B0BCCB" opacity="0.3"/>
-      <rect x="268" y="140" width="12" height="64" fill="#B0BCCB" opacity="0.25"/>
-
-      <!-- Arched windows — nave -->
+      <rect x="80"  y="140" width="12"  height="64" fill="#B0BCCB" opacity="0.3"/>
+      <rect x="268" y="140" width="12"  height="64" fill="#B0BCCB" opacity="0.25"/>
       <g stroke="#7A8FAA" stroke-width="0.9" fill="#E8EEF5" opacity="0.9">
-        <!-- Left window -->
         <path d="M104 198 L104 166 Q113 155 122 166 L122 198 Z"/>
-        <!-- Center-left window -->
         <path d="M138 198 L138 166 Q147 155 156 166 L156 198 Z"/>
-        <!-- Center-right window -->
         <path d="M168 198 L168 166 Q177 155 186 166 L186 198 Z"/>
-        <!-- Right window -->
         <path d="M204 198 L204 166 Q213 155 222 166 L222 198 Z"/>
-        <!-- Far right window -->
         <path d="M238 198 L238 166 Q247 155 256 166 L256 198 Z"/>
       </g>
-      <!-- Window cross details -->
       <g stroke="#7A8FAA" stroke-width="0.6" opacity="0.5">
-        <line x1="113" y1="164" x2="113" y2="192"/>
-        <line x1="105" y1="178" x2="121" y2="178"/>
-        <line x1="147" y1="164" x2="147" y2="192"/>
-        <line x1="139" y1="178" x2="155" y2="178"/>
-        <line x1="177" y1="164" x2="177" y2="192"/>
-        <line x1="169" y1="178" x2="185" y2="178"/>
-        <line x1="213" y1="164" x2="213" y2="192"/>
-        <line x1="205" y1="178" x2="221" y2="178"/>
-        <line x1="247" y1="164" x2="247" y2="192"/>
-        <line x1="239" y1="178" x2="255" y2="178"/>
+        <line x1="113" y1="164" x2="113" y2="192"/><line x1="105" y1="178" x2="121" y2="178"/>
+        <line x1="147" y1="164" x2="147" y2="192"/><line x1="139" y1="178" x2="155" y2="178"/>
+        <line x1="177" y1="164" x2="177" y2="192"/><line x1="169" y1="178" x2="185" y2="178"/>
+        <line x1="213" y1="164" x2="213" y2="192"/><line x1="205" y1="178" x2="221" y2="178"/>
+        <line x1="247" y1="164" x2="247" y2="192"/><line x1="239" y1="178" x2="255" y2="178"/>
       </g>
-
-      <!-- Nave roof (shallow gable) -->
       <polygon points="72,140 288,140 280,118 80,118" fill="#C4CDD9" opacity="0.8"/>
-      <!-- Roof ridge detail -->
       <line x1="80" y1="118" x2="280" y2="118" stroke="#A8B4C0" stroke-width="1" opacity="0.6"/>
-
-      <!-- ── Bell tower (left of center) ───────────── -->
-      <!-- Tower base -->
-      <rect x="118" y="80" width="54" height="124" fill="url(#towerGrad)" opacity="0.9"/>
-      <!-- Tower side shading -->
-      <rect x="118" y="80" width="8"  height="124" fill="#A8B4C2" opacity="0.4"/>
-      <!-- Tower cornice / band -->
-      <rect x="114" y="106" width="62" height="6"  rx="1" fill="#B0BAC8" opacity="0.7"/>
-      <rect x="114" y="148" width="62" height="5"  rx="1" fill="#B0BAC8" opacity="0.6"/>
-      <!-- Tower belfry arched openings -->
+      <rect x="118" y="80"  width="54" height="124" fill="url(#towerGrad)" opacity="0.9"/>
+      <rect x="118" y="80"  width="8"  height="124" fill="#A8B4C2" opacity="0.4"/>
+      <rect x="114" y="106" width="62" height="6"   rx="1" fill="#B0BAC8" opacity="0.7"/>
+      <rect x="114" y="148" width="62" height="5"   rx="1" fill="#B0BAC8" opacity="0.6"/>
       <g fill="#D4DADF" stroke="#7A8FAA" stroke-width="0.8" opacity="0.9">
         <path d="M128 148 L128 126 Q136 115 144 126 L144 148 Z"/>
         <path d="M148 148 L148 126 Q156 115 164 126 L164 148 Z"/>
       </g>
-      <!-- Belfry cross-bar -->
       <g stroke="#7A8FAA" stroke-width="0.5" opacity="0.4">
-        <line x1="136" y1="125" x2="136" y2="144"/>
-        <line x1="129" y1="133" x2="143" y2="133"/>
-        <line x1="156" y1="125" x2="156" y2="144"/>
-        <line x1="149" y1="133" x2="163" y2="133"/>
+        <line x1="136" y1="125" x2="136" y2="144"/><line x1="129" y1="133" x2="143" y2="133"/>
+        <line x1="156" y1="125" x2="156" y2="144"/><line x1="149" y1="133" x2="163" y2="133"/>
       </g>
-      <!-- Tower arched windows upper -->
       <g fill="#D0D8E4" stroke="#7A8FAA" stroke-width="0.7" opacity="0.8">
         <path d="M131 104 L131 88 Q136 80 141 88 L141 104 Z"/>
         <path d="M150 104 L150 88 Q155 80 160 88 L160 104 Z"/>
       </g>
-
-      <!-- ── Spire / pyramid tower top ──────────────── -->
       <polygon points="145,14 172,14 176,82 114,82" fill="#B4BEC9" opacity="0.85"/>
-      <!-- Spire tip shading -->
       <polygon points="145,14 158.5,14 160,48 143,48" fill="#A0AABB" opacity="0.3"/>
-      <!-- Spire band -->
       <rect x="114" y="75" width="62" height="7" rx="1" fill="#A8B2BE" opacity="0.7"/>
-
-      <!-- ── Cross on spire ─────────────────────────── -->
       <g stroke="#5A6A7A" stroke-width="2" stroke-linecap="round" opacity="0.75">
         <line x1="158.5" y1="4"  x2="158.5" y2="24"/>
         <line x1="152"   y1="11" x2="165"   y2="11"/>
       </g>
-
-      <!-- ── Front facade details ───────────────────── -->
-      <!-- Facade pilasters -->
-      <rect x="80"  y="120" width="8" height="88" fill="#C8D0DC" opacity="0.5"/>
-      <rect x="272" y="120" width="8" height="88" fill="#C8D0DC" opacity="0.5"/>
-      <!-- Main entrance arch -->
+      <rect x="80"  y="120" width="8"  height="88" fill="#C8D0DC" opacity="0.5"/>
+      <rect x="272" y="120" width="8"  height="88" fill="#C8D0DC" opacity="0.5"/>
       <path d="M152 216 L152 174 Q180 155 208 174 L208 216 Z" fill="#C8D2DC" stroke="#8A9AB0" stroke-width="1" opacity="0.85"/>
-      <!-- Entrance door -->
       <path d="M165 216 L165 185 Q180 170 195 185 L195 216 Z" fill="#8898AA" opacity="0.4"/>
-      <!-- Door cross detail -->
       <g stroke="#6A7A8A" stroke-width="0.8" opacity="0.5">
         <line x1="180" y1="176" x2="180" y2="210"/>
         <line x1="165" y1="192" x2="195" y2="192"/>
       </g>
-
-      <!-- Entablature over entrance -->
       <rect x="145" y="150" width="70" height="6" rx="1" fill="#B8C2CE" opacity="0.6"/>
-
-      <!-- ── Foreground trees ───────────────────────── -->
-      <!-- Left tree -->
       <rect x="57"  y="188" width="6"  height="26" fill="#8A7060" opacity="0.45"/>
       <ellipse cx="60"  cy="176" rx="20" ry="28" fill="url(#greenGrad)" opacity="0.85" filter="url(#wcBlur)"/>
       <ellipse cx="68"  cy="170" rx="14" ry="22" fill="#96B88A" opacity="0.5"/>
-      <!-- Right tree -->
       <rect x="297" y="188" width="6"  height="26" fill="#8A7060" opacity="0.45"/>
       <ellipse cx="300" cy="176" rx="20" ry="28" fill="url(#greenGrad)" opacity="0.85" filter="url(#wcBlur)"/>
       <ellipse cx="292" cy="170" rx="14" ry="22" fill="#96B88A" opacity="0.5"/>
-      <!-- Left shrub -->
       <ellipse cx="96"  cy="213" rx="18" ry="12" fill="#A4C09A" opacity="0.55" filter="url(#wcBlur)"/>
-      <!-- Right shrub -->
       <ellipse cx="264" cy="213" rx="18" ry="12" fill="#A4C09A" opacity="0.55" filter="url(#wcBlur)"/>
-
-      <!-- ── Ground wash ─────────────────────────────── -->
       <rect x="0" y="210" width="360" height="70" fill="url(#groundGrad)"/>
-      <!-- Path / forecourt -->
       <ellipse cx="180" cy="225" rx="60" ry="8" fill="#C8D0A8" opacity="0.25"/>
-
-      <!-- ── Ink outline pass ───────────────────────── -->
-      <!-- Main building outline (light) -->
-      <rect x="80"  y="140" width="200" height="64" fill="none" stroke="#6A7A8A" stroke-width="0.7" opacity="0.3"/>
-      <rect x="118" y="80"  width="54"  height="124" fill="none" stroke="#6A7A8A" stroke-width="0.7" opacity="0.3"/>
+      <rect x="80" y="140" width="200" height="64" fill="none" stroke="#6A7A8A" stroke-width="0.7" opacity="0.3"/>
+      <rect x="118" y="80"  width="54" height="124" fill="none" stroke="#6A7A8A" stroke-width="0.7" opacity="0.3"/>
       <polygon points="145,14 172,14 176,82 114,82" fill="none" stroke="#6A7A8A" stroke-width="0.7" opacity="0.3"/>
-
-      <!-- ── Vignette overlay ───────────────────────── -->
       <rect width="360" height="280" fill="url(#vignette)"/>
-
     </svg>
 
-    <a
-      class="maps-btn fade-up"
-      style="transition-delay:0.5s"
-      href="https://www.google.com/maps/search/Marth+Mariam+Cathedral+Thrissur"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <!-- Pin icon -->
-      <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <a class="maps-btn fade-up" style="transition-delay:0.5s"
+       href="https://www.google.com/maps/search/Marth+Mariam+Cathedral+Thrissur"
+       target="_blank" rel="noopener noreferrer">
+      <svg width="12" height="15" viewBox="0 0 12 15" fill="none" aria-hidden="true">
         <path d="M6 0C3.24 0 1 2.24 1 5c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5A1.5 1.5 0 114.5 5 1.5 1.5 0 016 6.5z" fill="currentColor"/>
       </svg>
       Open in Google Maps
     </a>
 
-    <div class="scroll-caret">
-      <span class="caret-label">Scroll</span>
-      <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
-        <path d="M1 1L8 8L15 1" stroke="#8B9EB7" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+    <div class="scroll-caret"><span class="caret-label">Scroll</span>
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 1L8 8L15 1" stroke="#8B9EB7" stroke-width="1.5" stroke-linecap="round"/></svg>
     </div>
-
   </section>
 
-  <!-- ════════════════════════════════════════════════════════
-       SECTION 5  —  Events Timeline
-       ════════════════════════════════════════════════════════ -->
+  <!-- ══ S5 — Timeline ══ -->
   <section id="timeline">
 
-    <!-- Heading with flourishes -->
     <div class="timeline-heading fade-up" style="transition-delay:0.1s">
-      <svg class="flourish-svg" width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="flourish-svg" width="60" height="20" viewBox="0 0 60 20" fill="none" aria-hidden="true">
         <path d="M2 10 Q10 4 20 10 Q30 16 40 10 Q50 4 58 10" stroke="#3D5A80" stroke-width="1" fill="none"/>
-        <path d="M10 6 Q14 2 18 6" stroke="#3D5A80" stroke-width="0.8" fill="none" opacity="0.5"/>
-        <path d="M42 14 Q46 18 50 14" stroke="#3D5A80" stroke-width="0.8" fill="none" opacity="0.5"/>
         <circle cx="30" cy="10" r="2" fill="#C9A84C"/>
       </svg>
-
       <h2 class="section-title">Events Timeline</h2>
-
-      <svg class="flourish-svg" width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="flourish-svg" width="60" height="20" viewBox="0 0 60 20" fill="none" aria-hidden="true">
         <path d="M2 10 Q10 16 20 10 Q30 4 40 10 Q50 16 58 10" stroke="#3D5A80" stroke-width="1" fill="none"/>
-        <path d="M10 14 Q14 18 18 14" stroke="#3D5A80" stroke-width="0.8" fill="none" opacity="0.5"/>
-        <path d="M42 6 Q46 2 50 6" stroke="#3D5A80" stroke-width="0.8" fill="none" opacity="0.5"/>
         <circle cx="30" cy="10" r="2" fill="#C9A84C"/>
       </svg>
     </div>
 
     <ul class="tl-list">
 
-      <!-- Event 1: Arrival -->
-      <li class="tl-item fade-up" style="transition-delay:0.15s">
+      <!-- Holy Matrimony -->
+      <li class="tl-item fade-up" style="transition-delay:0.2s">
         <div class="tl-icon">
-          <!-- Guest/arrival icon -->
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3D5A80" stroke-width="1.3" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="12" cy="7" r="3"/>
-            <path d="M5 21c0-4 3.1-7 7-7s7 3 7 7"/>
-            <path d="M18 10l3 2-3 2"/>
-            <line x1="16" y1="12" x2="21" y2="12"/>
-          </svg>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">9:30 AM</div>
-          <div class="tl-event">Arrival & Seating</div>
-          <div class="tl-sub">Marth Mariam Cathedral · Thrissur</div>
-        </div>
-      </li>
-
-      <!-- Event 2: Holy Matrimony -->
-      <li class="tl-item fade-up" style="transition-delay:0.25s">
-        <div class="tl-icon">
-          <!-- Rings icon -->
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3D5A80" stroke-width="1.3" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="9"  cy="13" r="5"/>
-            <circle cx="15" cy="13" r="5"/>
-            <line x1="9"  y1="8"  x2="9"  y2="6"/>
-            <line x1="15" y1="8"  x2="15" y2="6"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3D5A80" stroke-width="1.3" stroke-linecap="round" aria-hidden="true">
+            <circle cx="9"  cy="13" r="5"/><circle cx="15" cy="13" r="5"/>
+            <line x1="9" y1="8" x2="9" y2="6"/><line x1="15" y1="8" x2="15" y2="6"/>
           </svg>
         </div>
         <div class="tl-content">
           <div class="tl-time">10:10 AM</div>
           <div class="tl-event">Holy Matrimony</div>
-          <div class="tl-sub">H.G. Mar Awgin Kuriakose Metropolitan · Church of the East</div>
+          <p class="tl-officiant">H.G. Mar Awgin Kuriakose Metropolitan<br/>Church of the East</p>
+          <!-- Location thumbnail -->
+          <a class="tl-location"
+             href="https://www.google.com/maps/search/Marth+Mariam+Cathedral+Thrissur"
+             target="_blank" rel="noopener noreferrer">
+            <div class="tl-loc-thumb">
+              <!-- Mini cathedral sketch -->
+              <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                <rect width="52" height="52" fill="#EEF2F7"/>
+                <!-- sky -->
+                <rect width="52" height="52" fill="#EAF0F8" opacity="0.6"/>
+                <!-- building body -->
+                <rect x="10" y="28" width="32" height="16" fill="#C8D2DE"/>
+                <!-- tower -->
+                <rect x="20" y="14" width="12" height="30" fill="#B8C4D2"/>
+                <!-- roof -->
+                <polygon points="8,28 44,28 42,22 10,22" fill="#B4BEC9"/>
+                <!-- spire -->
+                <polygon points="26,2 30,2 31,16 21,16" fill="#A8B4C2"/>
+                <!-- cross -->
+                <line x1="26" y1="1" x2="26" y2="10" stroke="#6A7A8A" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="23" y1="5"  x2="29" y2="5"  stroke="#6A7A8A" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- door -->
+                <path d="M22 44 L22 34 Q26 29 30 34 L30 44 Z" fill="#8898AA" opacity="0.6"/>
+                <!-- windows -->
+                <path d="M13 44 L13 36 Q16 31 19 36 L19 44 Z" fill="#D8E4EE" stroke="#8A9AB0" stroke-width="0.5"/>
+                <path d="M33 44 L33 36 Q36 31 39 36 L39 44 Z" fill="#D8E4EE" stroke="#8A9AB0" stroke-width="0.5"/>
+                <!-- ground -->
+                <ellipse cx="26" cy="44" rx="22" ry="4" fill="#B8C9A0" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="tl-loc-info">
+              <span class="tl-loc-name">Marth Mariam Cathedral</span>
+              <span class="tl-loc-addr">Thrissur, Kerala</span>
+              <span class="tl-loc-dir">Get directions ›</span>
+            </div>
+          </a>
         </div>
       </li>
 
-      <!-- Event 3: Maduram Veppu -->
+      <!-- Reception -->
       <li class="tl-item fade-up" style="transition-delay:0.35s">
         <div class="tl-icon">
-          <!-- Flower/blessing icon -->
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3D5A80" stroke-width="1.3" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 2 Q14 7 12 9"/>
-            <path d="M12 22 Q10 17 12 15"/>
-            <path d="M2 12 Q7 10 9 12"/>
-            <path d="M22 12 Q17 14 15 12"/>
-            <path d="M5.6 5.6 Q9 8.5 8.5 11"/>
-            <path d="M18.4 18.4 Q15 15.5 15.5 13"/>
-            <path d="M18.4 5.6 Q15.5 9 13 8.5"/>
-            <path d="M5.6 18.4 Q8.5 15 11 15.5"/>
-          </svg>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">12:00 PM</div>
-          <div class="tl-event">Maduram Veppu</div>
-          <div class="tl-sub">Sweet ceremony · Marth Mariam Cathedral</div>
-        </div>
-      </li>
-
-      <!-- Event 4: Reception & Lunch -->
-      <li class="tl-item fade-up" style="transition-delay:0.45s">
-        <div class="tl-icon">
-          <!-- Clinking glasses icon -->
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3D5A80" stroke-width="1.3" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3D5A80" stroke-width="1.3" stroke-linecap="round" aria-hidden="true">
             <path d="M8 22V12L4 4h8l-4 8v10z"/>
             <path d="M16 22V12l4-8h-8l4 8v10z"/>
             <line x1="8" y1="22" x2="16" y2="22"/>
@@ -897,15 +830,131 @@
         <div class="tl-content">
           <div class="tl-time">1:00 PM</div>
           <div class="tl-event">Reception &amp; Lunch</div>
-          <div class="tl-sub">Chaldean Centre · Thrissur</div>
+          <!-- Location thumbnail -->
+          <a class="tl-location"
+             href="https://www.google.com/maps/search/Chaldean+Centre+Thrissur"
+             target="_blank" rel="noopener noreferrer">
+            <div class="tl-loc-thumb">
+              <!-- Mini hall/venue sketch -->
+              <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                <rect width="52" height="52" fill="#EEF2F7"/>
+                <rect width="52" height="52" fill="#EAF0F8" opacity="0.6"/>
+                <!-- Main hall body -->
+                <rect x="6" y="24" width="40" height="20" fill="#C8D2DE"/>
+                <!-- Columns -->
+                <rect x="10" y="20" width="4" height="24" fill="#B8C4D0"/>
+                <rect x="18" y="20" width="4" height="24" fill="#B8C4D0"/>
+                <rect x="30" y="20" width="4" height="24" fill="#B8C4D0"/>
+                <rect x="38" y="20" width="4" height="24" fill="#B8C4D0"/>
+                <!-- Entablature -->
+                <rect x="4" y="18" width="44" height="4" rx="1" fill="#A8B4C2"/>
+                <!-- Pediment -->
+                <polygon points="4,18 48,18 44,10 8,10" fill="#B4BEC9"/>
+                <!-- Roof peak detail -->
+                <line x1="8" y1="10" x2="44" y2="10" stroke="#9AAAB8" stroke-width="0.8"/>
+                <!-- Door -->
+                <rect x="21" y="32" width="10" height="12" rx="1" fill="#8898AA" opacity="0.55"/>
+                <!-- Steps -->
+                <rect x="16" y="43" width="20" height="2" rx="0.5" fill="#A8B4C0" opacity="0.6"/>
+                <rect x="12" y="45" width="28" height="2" rx="0.5" fill="#A0AABA" opacity="0.5"/>
+                <!-- Ground -->
+                <ellipse cx="26" cy="46" rx="24" ry="4" fill="#B8C9A0" opacity="0.25"/>
+              </svg>
+            </div>
+            <div class="tl-loc-info">
+              <span class="tl-loc-name">Chaldean Centre</span>
+              <span class="tl-loc-addr">Thrissur, Kerala</span>
+              <span class="tl-loc-dir">Get directions ›</span>
+            </div>
+          </a>
         </div>
       </li>
 
     </ul>
 
-    <!-- Closing note -->
-    <p class="footer-text fade-up" style="font-style:italic;color:var(--blue-light);font-size:0.9rem;max-width:300px;line-height:1.9;text-align:center;transition-delay:0.55s">
-      "This is the Lord's doing;<br/>it is marvelous in our eyes"<br/><span style="font-size:0.7rem;letter-spacing:0.1em;">— Psalms 118:23</span>
+    <div class="scroll-caret"><span class="caret-label">Scroll</span>
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 1L8 8L15 1" stroke="#8B9EB7" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ══ S6 — Sharing Happiness ══ -->
+  <section id="happiness">
+
+    <svg style="position:absolute;bottom:0;right:0;width:130px;opacity:0.14;" viewBox="0 0 160 180" fill="none" aria-hidden="true">
+      <path d="M140 170 Q110 140 80 120 Q50 100 20 80" stroke="#3D5A80" stroke-width="1.2" fill="none"/>
+      <ellipse cx="80" cy="120" rx="16" ry="9" fill="#3D5A80" opacity="0.6" transform="rotate(-30 80 120)"/>
+      <ellipse cx="110" cy="142" rx="12" ry="7" fill="#3D5A80" opacity="0.45" transform="rotate(-10 110 142)"/>
+      <ellipse cx="50" cy="98" rx="14" ry="8" fill="#3D5A80" opacity="0.4" transform="rotate(-50 50 98)"/>
+    </svg>
+
+    <div class="divider fade-up" style="transition-delay:0.05s;margin-bottom:4px">
+      <div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div>
+    </div>
+
+    <span class="fade-up" style="
+        font-family:'Great Vibes',cursive;
+        font-size:clamp(2.6rem,11vw,5rem);
+        color:var(--blue);line-height:1.05;text-align:center;
+        transition-delay:0.1s">
+      Sharing the Happiness
+    </span>
+
+    <p class="happiness-subtitle fade-up" style="transition-delay:0.2s">Joyfully shared by</p>
+
+    <div class="happiness-grid fade-up" style="transition-delay:0.32s">
+
+      <div class="happiness-person">
+        <div class="hp-avatar">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#3D5A80" stroke-width="1.3" stroke-linecap="round" aria-hidden="true">
+            <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/>
+            <path d="M8 15v1a6 6 0 0 0 6 6a6 6 0 0 0 6-6v-4"/>
+            <circle cx="20" cy="10" r="2"/>
+          </svg>
+        </div>
+        <span class="hp-name">Dr. Riza</span>
+        <span class="hp-relation">Sister</span>
+      </div>
+
+      <div class="happiness-person">
+        <div class="hp-avatar">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#3D5A80" stroke-width="1.3" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M20 21a8 8 0 1 0-16 0"/>
+          </svg>
+        </div>
+        <span class="hp-name">Antony</span>
+        <span class="hp-relation">Brother</span>
+      </div>
+
+      <div class="happiness-person">
+        <div class="hp-avatar">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#3D5A80" stroke-width="1.3" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M20 21a8 8 0 1 0-16 0"/>
+            <path d="M12 3l.6 1.2 1.4.2-.9.9.2 1.4-1.3-.7-1.3.7.2-1.4-.9-.9 1.4-.2z" fill="#C9A84C" stroke="none"/>
+          </svg>
+        </div>
+        <span class="hp-name">Miriam</span>
+        <span class="hp-relation">Sister</span>
+      </div>
+
+    </div>
+
+    <!-- Contact -->
+    <div class="fade-up" style="text-align:center;transition-delay:0.48s">
+      <p style="font-family:'Montserrat',sans-serif;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-light);margin-bottom:5px;">Contact</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(0.9rem,3.2vw,1.1rem);color:var(--blue);line-height:2;">
+        +91 94477 31698 &nbsp;·&nbsp; +91 99448 45735
+      </p>
+    </div>
+
+    <div class="divider fade-up" style="transition-delay:0.58s;margin-top:6px">
+      <div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div>
+    </div>
+
+    <p class="psalm-block fade-up" style="transition-delay:0.68s">
+      "This is the Lord's doing;<br/>it is marvelous in our eyes"
+      <span class="psalm-ref">— Psalms 118:23</span>
     </p>
 
   </section>
@@ -913,269 +962,116 @@
 </div><!-- /page-container -->
 
 <script>
-/* ══════════════════════════════════════════════════════════════
-   Navigation dots
-   ══════════════════════════════════════════════════════════════ */
-const sections = ['intro', 'scratch', 'venue', 'timeline'];
+/* ── Nav dots ── */
+const SECTIONS = ['intro','countdown','parents','venue','timeline','happiness'];
 const dots     = document.querySelectorAll('.nav-dot');
 const scroller = document.getElementById('scroller');
 
 dots.forEach((dot, i) => {
   dot.addEventListener('click', () => {
-    document.getElementById(sections[i]).scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(SECTIONS[i]).scrollIntoView({ behavior: 'smooth' });
   });
 });
 
-const sectionEls = sections.map(id => document.getElementById(id));
-
-const obsNav = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const idx = sections.indexOf(entry.target.id);
+SECTIONS.forEach((id, i) => {
+  new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
       dots.forEach(d => d.classList.remove('active'));
-      if (idx >= 0) dots[idx].classList.add('active');
+      dots[i].classList.add('active');
     }
-  });
-}, { root: scroller, threshold: 0.5 });
+  }, { root: scroller, threshold: 0.5 }).observe(document.getElementById(id));
+});
 
-sectionEls.forEach(el => obsNav.observe(el));
-
-
-/* ══════════════════════════════════════════════════════════════
-   Fade-up reveal on scroll
-   ══════════════════════════════════════════════════════════════ */
-const fadeEls = document.querySelectorAll('.fade-up');
-
-const obsFade = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      obsFade.unobserve(entry.target);
+/* ── Fade-up ── */
+document.querySelectorAll('.fade-up').forEach(el => {
+  new IntersectionObserver((entries, obs) => {
+    if (entries[0].isIntersecting) {
+      entries[0].target.classList.add('visible');
+      obs.unobserve(entries[0].target);
     }
-  });
-}, { root: scroller, threshold: 0.15 });
+  }, { root: scroller, threshold: 0.12 }).observe(el);
+});
 
-fadeEls.forEach(el => obsFade.observe(el));
+/* ── Countdown — 19 Apr 2026, 10:10 AM IST (UTC 04:40) ── */
+const TARGET  = new Date('2026-04-19T04:40:00Z').getTime();
+const elDays  = document.getElementById('cd-days');
+const elHours = document.getElementById('cd-hours');
+const elMins  = document.getElementById('cd-mins');
+const elSecs  = document.getElementById('cd-secs');
+const elDone  = document.getElementById('cd-done');
+const cdGrid  = document.querySelector('.cd-grid');
 
+function pad(n) { return String(n).padStart(2, '0'); }
 
-/* ══════════════════════════════════════════════════════════════
-   Scratch-Off Reveal
-   ══════════════════════════════════════════════════════════════ */
-const CIRCLE_R  = 46; // radius in canvas units (92/2)
-const THRESHOLD = 0.72; // 72% scratched = revealed
-
-const scratched = [false, false, false];
-
-function buildGoldPattern(ctx, w, h) {
-  /* Gold foil gradient + shimmer streaks */
-  const g = ctx.createLinearGradient(0, 0, w, h);
-  g.addColorStop(0,    '#E8C84A');
-  g.addColorStop(0.3,  '#F5DE80');
-  g.addColorStop(0.55, '#D4A830');
-  g.addColorStop(0.75, '#F0D060');
-  g.addColorStop(1,    '#C8A020');
-  return g;
+function flipNum(el, val) {
+  if (el.textContent === val) return;
+  el.classList.add('flip');
+  setTimeout(() => { el.textContent = val; el.classList.remove('flip'); }, 150);
 }
 
-function drawGold(canvas) {
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width, h = canvas.height;
-  ctx.clearRect(0, 0, w, h);
-
-  // Clip to circle
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(CIRCLE_R, CIRCLE_R, CIRCLE_R - 1, 0, Math.PI * 2);
-  ctx.clip();
-
-  // Base gold fill
-  ctx.fillStyle = buildGoldPattern(ctx, w, h);
-  ctx.fillRect(0, 0, w, h);
-
-  // Shimmer streaks
-  ctx.globalAlpha = 0.25;
-  ctx.fillStyle = '#FFFDE0';
-  [[20, 10, 5, 55], [55, 30, 3, 45], [35, 60, 4, 30], [70, 20, 6, 50]].forEach(([x, y, r, a]) => {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(a * Math.PI / 180);
-    ctx.scale(1, 0.3);
-    ctx.beginPath();
-    ctx.arc(0, 0, r * 2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  });
-  ctx.globalAlpha = 1;
-
-  // Subtle border
-  ctx.strokeStyle = '#B89020';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.arc(CIRCLE_R, CIRCLE_R, CIRCLE_R - 1, 0, Math.PI * 2);
-  ctx.stroke();
-
-  ctx.restore();
-}
-
-function initScratch(idx) {
-  const canvas = document.getElementById(`sc-${idx}`);
-  const ctx    = canvas.getContext('2d');
-  let isDown   = false;
-
-  drawGold(canvas);
-
-  function getPos(e) {
-    const rect  = canvas.getBoundingClientRect();
-    const touch = e.touches ? e.touches[0] : e;
-    return {
-      x: (touch.clientX - rect.left) * (canvas.width  / rect.width),
-      y: (touch.clientY - rect.top)  * (canvas.height / rect.height),
-    };
+function tick() {
+  const diff = TARGET - Date.now();
+  if (diff <= 0) {
+    cdGrid.style.display = 'none';
+    elDone.style.display = 'block';
+    return;
   }
-
-  function doScratch(x, y) {
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(x, y, 18, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalCompositeOperation = 'source-over';
-    checkComplete(idx, canvas);
-  }
-
-  canvas.addEventListener('mousedown',  e => { isDown = true; doScratch(...Object.values(getPos(e))); });
-  canvas.addEventListener('mousemove',  e => { if (isDown) doScratch(...Object.values(getPos(e))); });
-  canvas.addEventListener('mouseup',    ()  => { isDown = false; });
-  canvas.addEventListener('mouseleave', ()  => { isDown = false; });
-  canvas.addEventListener('touchstart', e => { e.preventDefault(); isDown = true; doScratch(...Object.values(getPos(e))); }, { passive: false });
-  canvas.addEventListener('touchmove',  e => { e.preventDefault(); if (isDown) doScratch(...Object.values(getPos(e))); }, { passive: false });
-  canvas.addEventListener('touchend',   ()  => { isDown = false; });
+  flipNum(elDays,  pad(Math.floor(diff / 86400000)));
+  flipNum(elHours, pad(Math.floor((diff % 86400000) / 3600000)));
+  flipNum(elMins,  pad(Math.floor((diff % 3600000)  / 60000)));
+  flipNum(elSecs,  pad(Math.floor((diff % 60000)    / 1000)));
 }
+tick();
+setInterval(tick, 1000);
 
-function scratchedPercent(canvas) {
-  const ctx    = canvas.getContext('2d');
-  const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-  let transparent = 0;
-  for (let i = 3; i < pixels.length; i += 4) {
-    if (pixels[i] < 128) transparent++;
-  }
-  return transparent / (pixels.length / 4);
-}
+/* ── Add to Calendar ── */
+const EVENT_TITLE    = 'Wedding of Ittymathew & Rosemary';
+const EVENT_LOCATION = 'Marth Mariam Cathedral, Thrissur, Kerala';
+const EVENT_DESC     = 'Holy Matrimony followed by Reception & Lunch at Chaldean Centre, Thrissur.';
+// IST 10:10 = UTC 04:40 ; duration ~4 h
+const DT_START = '20260419T044000Z';
+const DT_END   = '20260419T084000Z';
 
-function checkComplete(idx, canvas) {
-  if (scratched[idx]) return;
-  if (scratchedPercent(canvas) >= THRESHOLD) {
-    scratched[idx] = true;
-    // Fade canvas out
-    canvas.style.transition = 'opacity 0.5s';
-    canvas.style.opacity = '0';
-    canvas.style.pointerEvents = 'none';
-    if (scratched.every(Boolean)) {
-      setTimeout(launchConfetti, 400);
-    }
-  }
-}
+// Google Calendar
+const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
+  + `&text=${encodeURIComponent(EVENT_TITLE)}`
+  + `&dates=${DT_START}/${DT_END}`
+  + `&details=${encodeURIComponent(EVENT_DESC)}`
+  + `&location=${encodeURIComponent(EVENT_LOCATION)}`;
+document.getElementById('btn-gcal').href = gcalUrl;
 
-[0, 1, 2].forEach(initScratch);
+// ICS download
+document.getElementById('btn-ics').addEventListener('click', () => {
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Ittymathew & Rosemary Wedding//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `DTSTART:${DT_START}`,
+    `DTEND:${DT_END}`,
+    `SUMMARY:${EVENT_TITLE}`,
+    `DESCRIPTION:${EVENT_DESC}`,
+    `LOCATION:${EVENT_LOCATION}`,
+    'STATUS:CONFIRMED',
+    'BEGIN:VALARM',
+    'TRIGGER:-PT1D',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Wedding tomorrow!',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
 
-
-/* ══════════════════════════════════════════════════════════════
-   Confetti
-   ══════════════════════════════════════════════════════════════ */
-const confettiCanvas = document.getElementById('confetti-canvas');
-const confettiCtx    = confettiCanvas.getContext('2d');
-const COLORS = ['#3D5A80', '#C9A84C', '#FFFFFF', '#E8CE80', '#7A9FC0', '#F0D080', '#5B7BA0'];
-
-let particles     = [];
-let confettiRAF   = null;
-let confettiActive = false;
-
-function resizeConfetti() {
-  confettiCanvas.width  = window.innerWidth;
-  confettiCanvas.height = window.innerHeight;
-}
-resizeConfetti();
-window.addEventListener('resize', resizeConfetti);
-
-function randomBetween(a, b) { return a + Math.random() * (b - a); }
-
-function makeParticle() {
-  const shape = Math.random() < 0.6 ? 'rect' : 'ellipse';
-  return {
-    x:  randomBetween(0, confettiCanvas.width),
-    y:  randomBetween(-30, -5),
-    vx: randomBetween(-2.5, 2.5),
-    vy: randomBetween(2, 5.5),
-    rot: randomBetween(0, 360),
-    rotV: randomBetween(-6, 6),
-    color: COLORS[Math.floor(Math.random() * COLORS.length)],
-    w:  randomBetween(6, 12),
-    h:  randomBetween(4, 8),
-    shape,
-    alpha: 1,
-  };
-}
-
-function launchConfetti() {
-  if (confettiActive) return;
-  confettiActive = true;
-  confettiCanvas.style.display = 'block';
-
-  particles = Array.from({ length: 180 }, makeParticle);
-
-  let spawnedExtra = false;
-  let frame = 0;
-
-  function tick() {
-    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-    frame++;
-
-    // Spawn second wave
-    if (frame === 40 && !spawnedExtra) {
-      particles.push(...Array.from({ length: 80 }, makeParticle));
-      spawnedExtra = true;
-    }
-
-    particles = particles.filter(p => {
-      p.x   += p.vx;
-      p.y   += p.vy;
-      p.vy  += 0.12; // gravity
-      p.vx  *= 0.999;
-      p.rot += p.rotV;
-
-      // Fade out near bottom
-      if (p.y > confettiCanvas.height * 0.7) {
-        p.alpha = Math.max(0, p.alpha - 0.02);
-      }
-
-      if (p.y > confettiCanvas.height + 20 || p.alpha <= 0) return false;
-
-      confettiCtx.save();
-      confettiCtx.globalAlpha = p.alpha;
-      confettiCtx.translate(p.x, p.y);
-      confettiCtx.rotate(p.rot * Math.PI / 180);
-      confettiCtx.fillStyle = p.color;
-
-      if (p.shape === 'rect') {
-        confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-      } else {
-        confettiCtx.beginPath();
-        confettiCtx.ellipse(0, 0, p.w / 2, p.h / 2, 0, 0, Math.PI * 2);
-        confettiCtx.fill();
-      }
-      confettiCtx.restore();
-      return true;
-    });
-
-    if (particles.length > 0) {
-      confettiRAF = requestAnimationFrame(tick);
-    } else {
-      confettiCanvas.style.display = 'none';
-      confettiActive = false;
-    }
-  }
-
-  confettiRAF = requestAnimationFrame(tick);
-}
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = Object.assign(document.createElement('a'), { href: url, download: 'ittymathew-rosemary-wedding.ics' });
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+});
 </script>
 </body>
 </html>
