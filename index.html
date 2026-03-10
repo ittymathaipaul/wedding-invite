@@ -469,6 +469,41 @@
       font-size: clamp(0.62rem, 2vw, 0.72rem);
       letter-spacing: 0.1em; display: block; margin-top: 2px;
     }
+
+    /* ─── Floral header ────────────────────────── */
+    .floral-header {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: min(340px, 95vw);
+      pointer-events: none;
+    }
+
+    /* ─── Roman pillar ─────────────────────────── */
+    .tl-pillar {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ─── Timeline ornamental frame ────────────── */
+    .tl-frame {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+      max-width: min(380px, 100%);
+    }
+    .tl-orn-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .tl-orn-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(61,90,128,0.25), transparent);
+    }
   </style>
 </head>
 <body>
@@ -789,18 +824,15 @@
     <div class="happiness-grid fade-up" style="transition-delay:0.32s">
 
       <div class="happiness-person">
-        <span class="hp-name">Dr. Riza</span>
-        <span class="hp-relation">Sister</span>
+        <span class="hp-name">Riza</span>
       </div>
 
       <div class="happiness-person">
         <span class="hp-name">Antony</span>
-        <span class="hp-relation">Brother</span>
       </div>
 
       <div class="happiness-person">
         <span class="hp-name">Miriam</span>
-        <span class="hp-relation">Sister</span>
       </div>
 
     </div>
