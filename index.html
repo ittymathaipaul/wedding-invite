@@ -22,7 +22,10 @@
     }
 
     /* ─── Reset ─────────────────────────────────── */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+      user-select: none; -webkit-user-select: none;
+    }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
@@ -301,30 +304,128 @@
       display: flex; flex-direction: column;
       align-items: center; gap: 9px;
     }
-    .cal-btns {
-      display: flex; gap: 8px; flex-wrap: wrap;
-      justify-content: center;
-    }
     .cal-btn {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 10px 20px;
-      min-height: 44px; /* touch target */
-      border: 1px solid rgba(61,90,128,0.28);
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 32px;
+      min-height: 48px;
+      border: 1.5px solid var(--blue);
       border-radius: 100px;
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.5rem, 1.7vw, 0.58rem);
+      font-size: clamp(0.52rem, 1.8vw, 0.6rem);
       font-weight: 500;
-      letter-spacing: 0.14em; text-transform: uppercase;
+      letter-spacing: 0.16em; text-transform: uppercase;
       color: var(--blue);
       background: transparent;
       cursor: pointer; text-decoration: none;
-      transition: background 0.25s, color 0.25s, border-color 0.25s;
+      transition: background 0.2s, color 0.2s, transform 0.12s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .cal-btn:active,
-    .cal-btn:hover {
-      background: var(--blue); color: var(--cream);
-      border-color: var(--blue);
+    .cal-btn:active { background: var(--blue); color: var(--cream); transform: scale(0.96); }
+
+    /* ─── Calendar bottom sheet ──────────────── */
+    .sheet-overlay {
+      position: fixed; inset: 0;
+      background: rgba(20,30,45,0.42);
+      z-index: 500;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.28s ease;
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
     }
+    .sheet-overlay.open { opacity: 1; pointer-events: all; }
+
+    .sheet {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--cream);
+      border-radius: 22px 22px 0 0;
+      padding: 0 20px max(32px, calc(var(--b) + 24px));
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+      box-shadow: 0 -8px 40px rgba(61,90,128,0.15);
+    }
+    .sheet-overlay.open .sheet { transform: translateY(0); }
+
+    .sheet-handle {
+      width: 38px; height: 4px;
+      background: rgba(61,90,128,0.18);
+      border-radius: 2px;
+      margin: 14px auto 22px;
+    }
+    .sheet-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.5rem, 1.6vw, 0.56rem);
+      font-weight: 500; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--blue-light);
+      text-align: center; margin-bottom: 16px;
+    }
+    .sheet-opts { display: flex; flex-direction: column; gap: 10px; }
+
+    .sheet-opt {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; min-height: 64px;
+      background: rgba(61,90,128,0.04);
+      border: 1px solid rgba(61,90,128,0.1);
+      border-radius: 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3.5vw, 1.15rem);
+      color: var(--blue); cursor: pointer;
+      text-decoration: none;
+      transition: background 0.16s, transform 0.12s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .sheet-opt:active { background: rgba(61,90,128,0.1); transform: scale(0.98); }
+
+    .sheet-opt-ico {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .sheet-opt-ico.google { background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.13); }
+    .sheet-opt-ico.apple  { background: #1c1c1e; }
+    .sheet-opt-meta { display: flex; flex-direction: column; gap: 2px; }
+    .sheet-opt-hint {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.42rem, 1.4vw, 0.5rem);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue-light);
+    }
+    .sheet-cancel {
+      width: 100%; margin-top: 10px;
+      padding: 15px; min-height: 50px;
+      background: transparent; border: none; border-radius: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.5rem, 1.6vw, 0.56rem);
+      font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--blue-light); cursor: pointer;
+      transition: background 0.16s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .sheet-cancel:active { background: rgba(61,90,128,0.07); }
+
+    /* ─── Toast ─────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: max(88px, calc(var(--b) + 72px));
+      left: 50%; transform: translateX(-50%) translateY(14px);
+      background: rgba(25,35,50,0.9);
+      color: rgba(255,255,255,0.92);
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.5rem, 1.6vw, 0.56rem);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 10px 22px; border-radius: 100px;
+      z-index: 600; opacity: 0; pointer-events: none;
+      transition: opacity 0.22s, transform 0.22s;
+      white-space: nowrap;
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ─── Press states ───────────────────────── */
+    .parent-card { transition: transform 0.12s, box-shadow 0.12s; }
+    .parent-card:active { transform: scale(0.97); box-shadow: 0 1px 6px rgba(61,90,128,0.1); }
+    .phone-copy { cursor: pointer; transition: opacity 0.15s; }
+    .phone-copy:active { opacity: 0.6; }
 
     /* ════════════════════════════════════════════
        S4  ·  Timeline
@@ -672,17 +773,10 @@
     </div>
 
     <div class="cal-block fade-up" style="transition-delay:0.58s">
-      <span class="caps">Add to calendar</span>
-      <div class="cal-btns">
-        <a id="btn-gcal" class="cal-btn" target="_blank" rel="noopener noreferrer">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Google Calendar
-        </a>
-        <button class="cal-btn" id="btn-ics">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Apple / Outlook
-        </button>
-      </div>
+      <button class="cal-btn" id="btn-cal-open">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Save the Date
+      </button>
     </div>
 
     <div class="scroll-caret">
@@ -841,7 +935,9 @@
     <div class="fade-up" style="text-align:center;transition-delay:0.44s">
       <p style="font-family:'Montserrat',sans-serif;font-size:clamp(0.46rem,1.6vw,0.54rem);letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-light);margin-bottom:5px;">Contact</p>
       <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(0.92rem,3.2vw,1.1rem);color:var(--blue);line-height:2;">
-        +91 94477 31698 &nbsp;·&nbsp; +91 99448 45735
+        <span class="phone-copy" data-phone="+919447731698">+91 94477 31698</span>
+        &nbsp;·&nbsp;
+        <span class="phone-copy" data-phone="+919944845735">+91 99448 45735</span>
       </p>
     </div>
 
@@ -876,6 +972,50 @@
   </section>
 
 </div><!-- /page-container -->
+
+<!-- ── Calendar bottom sheet ── -->
+<div class="sheet-overlay" id="calOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <p class="sheet-label">Add to Calendar</p>
+    <div class="sheet-opts">
+
+      <a id="btn-gcal" class="sheet-opt" target="_blank" rel="noopener noreferrer">
+        <div class="sheet-opt-ico google">
+          <!-- Google Calendar coloured icon -->
+          <svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="6" y="6" width="36" height="36" rx="4" fill="#fff"/>
+            <rect x="6" y="18" width="36" height="6" fill="#E8EAED"/>
+            <rect x="6" y="6" width="36" height="12" rx="4" fill="#1A73E8"/>
+            <rect x="6" y="12" width="36" height="6" fill="#1A73E8"/>
+            <text x="24" y="38" font-family="Arial" font-size="14" font-weight="bold" fill="#1A73E8" text-anchor="middle">19</text>
+          </svg>
+        </div>
+        <div class="sheet-opt-meta">
+          <span>Google Calendar</span>
+          <span class="sheet-opt-hint">Opens in browser</span>
+        </div>
+      </a>
+
+      <button id="btn-ics" class="sheet-opt">
+        <div class="sheet-opt-ico apple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="sheet-opt-meta">
+          <span>Apple / Outlook</span>
+          <span class="sheet-opt-hint">Downloads .ics file</span>
+        </div>
+      </button>
+
+    </div>
+    <button class="sheet-cancel" id="calCancel">Cancel</button>
+  </div>
+</div>
+
+<!-- ── Toast ── -->
+<div class="toast" id="toast"></div>
 
 <script>
 /* ── Nav dots ── */
@@ -940,12 +1080,20 @@ function tick() {
 tick();
 setInterval(tick, 1000);
 
-/* ── Add to Calendar ── */
+/* ── Calendar sheet ── */
 const TITLE    = 'Wedding of Ittymathew & Rosemary';
 const LOCATION = 'Marth Mariam Cathedral, Thrissur, Kerala';
 const DESC     = 'Holy Matrimony at 10:10 AM followed by Reception & Lunch at Chaldean Centre, Thrissur.';
-const DT_START = '20260419T044000Z';   // 10:10 AM IST
-const DT_END   = '20260419T084000Z';   // ~1:10 PM IST
+const DT_START = '20260419T044000Z';
+const DT_END   = '20260419T084000Z';
+
+const calOverlay = document.getElementById('calOverlay');
+const openSheet  = () => calOverlay.classList.add('open');
+const closeSheet = () => calOverlay.classList.remove('open');
+
+document.getElementById('btn-cal-open').addEventListener('click', openSheet);
+document.getElementById('calCancel').addEventListener('click', closeSheet);
+calOverlay.addEventListener('click', e => { if (e.target === calOverlay) closeSheet(); });
 
 document.getElementById('btn-gcal').href =
   'https://calendar.google.com/calendar/render?action=TEMPLATE'
@@ -953,6 +1101,7 @@ document.getElementById('btn-gcal').href =
   + '&dates='    + DT_START + '/' + DT_END
   + '&details='  + encodeURIComponent(DESC)
   + '&location=' + encodeURIComponent(LOCATION);
+document.getElementById('btn-gcal').addEventListener('click', () => setTimeout(closeSheet, 300));
 
 document.getElementById('btn-ics').addEventListener('click', () => {
   const ics = [
@@ -969,15 +1118,33 @@ document.getElementById('btn-ics').addEventListener('click', () => {
     'DESCRIPTION:Wedding tomorrow!','END:VALARM',
     'END:VEVENT','END:VCALENDAR'
   ].join('\r\n');
-
   const a = Object.assign(document.createElement('a'), {
     href: URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' })),
     download: 'ittymathew-rosemary-wedding.ics'
   });
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  setTimeout(closeSheet, 300);
+});
+
+/* ── Toast ── */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* ── Tap-to-copy phone numbers ── */
+document.querySelectorAll('.phone-copy').forEach(el => {
+  el.addEventListener('click', () => {
+    const num = el.dataset.phone;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(num).then(() => showToast('Copied!'));
+    } else {
+      showToast('Long-press to copy');
+    }
+  });
 });
 </script>
 </body>
