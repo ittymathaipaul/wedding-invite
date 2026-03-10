@@ -131,9 +131,8 @@
 
     /* ─── Photos section ────────────────────── */
     .photo-deck {
-      position: relative;
-      flex: 1; width: 100%;
-      min-height: 0;
+      position: absolute;
+      inset: 0;
     }
 
     .polaroid {
@@ -191,8 +190,11 @@
       font-size: clamp(0.44rem, 1.4vw, 0.5rem);
       letter-spacing: 0.24em; text-transform: uppercase;
       color: var(--blue-light); text-align: center;
-      padding-top: 14px; opacity: 0.6;
-      flex-shrink: 0;
+      opacity: 0.6;
+      position: absolute;
+      bottom: max(46px, calc(var(--b) + 38px));
+      left: 0; right: 0;
+      z-index: 10;
     }
 
     .scroll-caret {
@@ -1148,16 +1150,16 @@ function easeFan(t) { return t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
 /* ── Gallery: spread (one-below-one) → stack as you scroll to happiness ── */
 // Spread = diagonal cascade, "one below the other"
 const SPREAD = [
-  { x: -58, y: -155, r:-13 },
-  { x: -36, y: -112, r: -9 },
-  { x: -12, y:  -68, r: -5 },
-  { x:  12, y:  -24, r:  0 },
-  { x:  36, y:   20, r:  4 },
-  { x:  58, y:   64, r:  8 },
-  { x:  66, y:  108, r: 11 },
-  { x:  44, y:  144, r:  8 },
-  { x:  18, y:  168, r:  4 },
-  { x:  -2, y:  186, r:  1 },
+  { x: -50, y: -110, r: -13 },
+  { x: -36, y:  -85, r:  -9 },
+  { x: -20, y:  -61, r:  -5 },
+  { x:  -3, y:  -36, r:  -1 },
+  { x:  13, y:  -12, r:   2 },
+  { x:  28, y:   12, r:   5 },
+  { x:  40, y:   36, r:   8 },
+  { x:  45, y:   61, r:  10 },
+  { x:  37, y:   85, r:   8 },
+  { x:  23, y:  110, r:   4 },
 ];
 
 // Stacked = all piled at centre
@@ -1178,10 +1180,11 @@ const gCards = Array.from(document.querySelectorAll('#galleryDeck .polaroid'));
 
 function applyGallery(raw) {
   const t = easeFan(Math.max(0, Math.min(1, raw)));
+  const sc = Math.min(1, (window.innerHeight - 160) / 450);
   gCards.forEach((card, i) => {
     const s = SPREAD[i], f = STACKED2[i];
-    const x = lerpFan(s.x, f.x, t);
-    const y = lerpFan(s.y, f.y, t);
+    const x = lerpFan(s.x, f.x, t) * sc;
+    const y = lerpFan(s.y, f.y, t) * sc;
     const r = lerpFan(s.r, f.r, t);
     card.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${r}deg)`;
     card.style.zIndex = i + 1;
