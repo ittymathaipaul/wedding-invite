@@ -129,6 +129,44 @@
       flex-shrink: 0;
     }
 
+    /* ─── Photos section ────────────────────── */
+    #photos { background: var(--cream); gap: 0; }
+
+    .photo-deck {
+      position: relative;
+      flex: 1; width: 100%;
+      min-height: 0;
+    }
+
+    .polaroid {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: min(128px, 33vw);
+      background: #fff;
+      padding: 6px 6px 24px;
+      box-shadow: 0 4px 22px rgba(0,0,0,0.17), 0 1px 5px rgba(0,0,0,0.08);
+      border-radius: 2px;
+      will-change: transform;
+      transform-origin: center center;
+    }
+
+    .polaroid img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      border-radius: 1px;
+    }
+
+    .photos-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.44rem, 1.4vw, 0.5rem);
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--blue-light); text-align: center;
+      padding-top: 14px; opacity: 0.6;
+      flex-shrink: 0;
+    }
+
     .scroll-caret {
       position: absolute;
       bottom: max(20px, calc(var(--b) + 14px));
@@ -610,7 +648,8 @@
 <body>
 
 <nav class="nav-dots" aria-label="Page navigation">
-  <div class="nav-dot active" data-target="intro"     title="Introduction"></div>
+  <div class="nav-dot active" data-target="photos"    title="Our Story"></div>
+  <div class="nav-dot"        data-target="intro"     title="Introduction"></div>
   <div class="nav-dot"        data-target="parents"   title="Parents"></div>
   <div class="nav-dot"        data-target="countdown" title="Date &amp; Countdown"></div>
   <div class="nav-dot"        data-target="timeline"  title="Timeline"></div>
@@ -618,6 +657,32 @@
 </nav>
 
 <div class="page-container" id="scroller">
+
+  <!-- ══════════════════════════════
+       S0  ·  Photos
+       ══════════════════════════════ -->
+  <section id="photos">
+
+    <div class="photo-deck" id="photoDeck">
+      <div class="polaroid"><img src="Photos/1.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/2.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/3.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/4.png"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/5.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/6.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/7.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/8.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/9.jpeg"  alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/10.jpg"  alt="Ittymathew &amp; Rosemary"/></div>
+    </div>
+
+    <p class="photos-label">Scroll to reveal</p>
+
+    <div class="scroll-caret">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true"><path d="M1 1L7 7L13 1" stroke="#8B9EB7" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </div>
+
+  </section>
 
   <!-- ══════════════════════════════
        S1  ·  Intro
@@ -1019,7 +1084,7 @@
 
 <script>
 /* ── Nav dots ── */
-const SECTIONS = ['intro','parents','countdown','timeline','happiness'];
+const SECTIONS = ['photos','intro','parents','countdown','timeline','happiness'];
 const dots     = document.querySelectorAll('.nav-dot');
 const scroller = document.getElementById('scroller');
 
@@ -1037,6 +1102,58 @@ SECTIONS.forEach((id, i) => {
     }
   }, { root: scroller, threshold: 0.5 }).observe(document.getElementById(id));
 });
+
+/* ── Photo deck: stack → fan on scroll ── */
+// Starting positions — all near centre, peeping corners
+const STACKED = [
+  { x:  3, y:  6, r:  9 },
+  { x: -4, y: -3, r: -7 },
+  { x:  6, y:  4, r: 13 },
+  { x: -5, y:  7, r:-10 },
+  { x:  2, y: -5, r:  5 },
+  { x: -3, y:  3, r:-12 },
+  { x:  7, y:  2, r:  7 },
+  { x: -2, y: -6, r: -4 },
+  { x:  4, y:  6, r: 11 },
+  { x: -1, y: -2, r:  2 },
+];
+
+// Final fan positions — radial spread around centre
+const FANNED = [
+  { x:-102, y: -48, r:-28 },
+  { x: -62, y: -88, r:-17 },
+  { x: -12, y:-108, r: -5 },
+  { x:  44, y: -94, r:  7 },
+  { x:  94, y: -56, r: 18 },
+  { x: 110, y:   6, r: 26 },
+  { x:  80, y:  64, r: 16 },
+  { x:  20, y:  90, r:  4 },
+  { x: -46, y:  80, r:-13 },
+  { x: -96, y:  34, r:-23 },
+];
+
+const polaroids = Array.from(document.querySelectorAll('.polaroid'));
+
+function lerpFan(a, b, t) { return a + (b - a) * t; }
+function easeFan(t) { return t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
+
+function applyFan(raw) {
+  const t = easeFan(Math.max(0, Math.min(1, raw)));
+  polaroids.forEach((card, i) => {
+    const s = STACKED[i], f = FANNED[i];
+    const x = lerpFan(s.x, f.x, t);
+    const y = lerpFan(s.y, f.y, t);
+    const r = lerpFan(s.r, f.r, t);
+    card.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${r}deg)`;
+    card.style.zIndex = i + 1;
+  });
+}
+
+applyFan(0); // initialise stacked
+
+scroller.addEventListener('scroll', () => {
+  applyFan(scroller.scrollTop / (window.innerHeight || screen.height));
+}, { passive: true });
 
 /* ── Fade-up ── */
 document.querySelectorAll('.fade-up').forEach(el => {
