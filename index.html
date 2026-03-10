@@ -1141,6 +1141,10 @@ SECTIONS.forEach((id, i) => {
 });
 
 
+/* ── Shared animation helpers ── */
+function lerpFan(a, b, t) { return a + (b - a) * t; }
+function easeFan(t) { return t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
+
 /* ── Gallery: spread (one-below-one) → stack as you scroll to happiness ── */
 // Spread = diagonal cascade, "one below the other"
 const SPREAD = [
