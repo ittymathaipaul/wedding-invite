@@ -1162,7 +1162,7 @@ const FANNED = [
   { x: -96, y:  34, r:-23 },
 ];
 
-const polaroids = Array.from(document.querySelectorAll('.polaroid'));
+const polaroids = Array.from(document.querySelectorAll('#photoDeck .polaroid'));
 
 function lerpFan(a, b, t) { return a + (b - a) * t; }
 function easeFan(t) { return t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
