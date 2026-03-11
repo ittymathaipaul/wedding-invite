@@ -1050,7 +1050,6 @@
         <div class="gallery-sticky">
 
           <div class="photo-deck" id="galleryDeck">
-            <div class="polaroid"><img src="Photos/10.jpg"  alt="Ittymathew &amp; Rosemary"/></div>
             <div class="polaroid"><img src="Photos/9.jpeg"  alt="Ittymathew &amp; Rosemary"/></div>
             <div class="polaroid"><img src="Photos/8.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
             <div class="polaroid"><img src="Photos/7.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
@@ -1247,17 +1246,16 @@ function buildSpread() {
   const colX    = Math.round(vw  * 0.31);
   const centerY = safeTop + safeH / 2 - vh / 2;   // safe-centre relative to viewport centre
   const rowY    = Math.round(safeH / 2 - halfCard - 10);
-  // Grid slots: [col, row] — col/row in {-1, 0, 1}; 10th is an accent fill
+  // Grid slots: [col, row] — col/row in {-1, 0, 1}
   const grid = [
     [-1,-1],[0,-1],[1,-1],   // top row
     [-1, 0],[0, 0],[1, 0],   // mid row
     [-1, 1],[0, 1],[1, 1],   // bottom row
-    [0.4, 0.45],             // accent: fills the centre-right gap
   ];
   // Per-card positional jitter and rotation for the hand-scattered feel
-  const jx = [-3, +5, -4, +2, -5, +3, -2, +4, -3, +6];
-  const jy = [+4, -5, +3, +5, -3, -4, +3, -4, +5, -3];
-  const rr = [-8, +5,+11, -6,-10, +7, +8, -3, -9,+13];
+  const jx = [-3, +5, -4, +2, -5, +3, -2, +4, -3];
+  const jy = [+4, -5, +3, +5, -3, -4, +3, -4, +5];
+  const rr = [-8, +5,+11, -6,-10, +7, +8, -3, -9];
   return grid.map(([c, r], i) => ({
     x: Math.round(c * colX   + jx[i]),
     y: Math.round(centerY + r * rowY + jy[i]),
@@ -1277,7 +1275,6 @@ const STACKED2 = [
   { x:  7, y:  2, r:  7 },
   { x: -2, y: -6, r: -4 },
   { x:  4, y:  6, r: 11 },
-  { x: -1, y: -2, r:  2 },
 ];
 
 const gCards = Array.from(document.querySelectorAll('#galleryDeck .polaroid'));
