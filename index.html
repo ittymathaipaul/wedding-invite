@@ -138,13 +138,19 @@
     .polaroid {
       position: absolute;
       top: 50%; left: 50%;
-      width: min(128px, 33vw);
+      width: min(155px, 40vw);
       background: #fff;
       padding: 6px 6px 24px;
       box-shadow: 0 4px 22px rgba(0,0,0,0.17), 0 1px 5px rgba(0,0,0,0.08);
       border-radius: 2px;
       will-change: transform;
       transform-origin: center center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: box-shadow 0.18s;
+    }
+    .polaroid:active {
+      box-shadow: 0 8px 36px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.12);
     }
 
     .polaroid img {
@@ -673,6 +679,79 @@
       flex: 1; height: 1px;
       background: linear-gradient(to right, transparent, rgba(61,90,128,0.25), transparent);
     }
+
+    /* ─── Lightbox ──────────────────────────── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 800;
+      background: rgba(0,0,0,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+    }
+    #lightbox.lb-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #lb-img {
+      max-width: 88vw;
+      max-height: 80dvh;
+      object-fit: contain;
+      border-radius: 3px;
+      box-shadow: 0 12px 60px rgba(0,0,0,0.7);
+      transform: scale(0.88);
+      transition: transform 0.28s cubic-bezier(.22,.97,.55,1);
+      display: block;
+    }
+    #lightbox.lb-open #lb-img {
+      transform: scale(1);
+    }
+    #lb-close {
+      position: absolute;
+      top: max(18px, env(safe-area-inset-top, 18px));
+      right: max(18px, env(safe-area-inset-right, 18px));
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #lb-prev, #lb-next {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 1.6rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #lb-prev { left: max(14px, env(safe-area-inset-left, 14px)); }
+    #lb-next { right: max(14px, env(safe-area-inset-right, 14px)); }
+    .lb-counter {
+      position: absolute;
+      bottom: max(22px, env(safe-area-inset-bottom, 22px));
+      left: 0; right: 0;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
   </style>
 </head>
 <body>
@@ -1121,6 +1200,15 @@
 <!-- ── Toast ── -->
 <div class="toast" id="toast"></div>
 
+<!-- ── Lightbox ── -->
+<div id="lightbox" aria-hidden="true" aria-modal="true" role="dialog">
+  <button id="lb-close" aria-label="Close">✕</button>
+  <button id="lb-prev" aria-label="Previous">&#8249;</button>
+  <img id="lb-img" src="" alt="Wedding photo" />
+  <button id="lb-next" aria-label="Next">&#8250;</button>
+  <p class="lb-counter" id="lb-counter"></p>
+</div>
+
 <script>
 /* ── Nav dots ── */
 const SECTIONS = ['intro','parents','countdown','timeline','gallery','happiness'];
@@ -1147,20 +1235,25 @@ SECTIONS.forEach((id, i) => {
 function lerpFan(a, b, t) { return a + (b - a) * t; }
 function easeFan(t) { return t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
 
-/* ── Gallery: spread (one-below-one) → stack as you scroll to happiness ── */
-// Spread = diagonal cascade, "one below the other"
-const SPREAD = [
-  { x: -50, y: -110, r: -13 },
-  { x: -36, y:  -85, r:  -9 },
-  { x: -20, y:  -61, r:  -5 },
-  { x:  -3, y:  -36, r:  -1 },
-  { x:  13, y:  -12, r:   2 },
-  { x:  28, y:   12, r:   5 },
-  { x:  40, y:   36, r:   8 },
-  { x:  45, y:   61, r:  10 },
-  { x:  37, y:   85, r:   8 },
-  { x:  23, y:  110, r:   4 },
-];
+/* ── Gallery: dynamic spread filling the viewport ── */
+function buildSpread() {
+  const cardW  = Math.min(0.40 * window.innerWidth, 155);
+  const cardH  = cardW * 4 / 3 + 30;          // img + polaroid padding
+  const halfCard = cardH / 2;
+  // Fill available safe height
+  const halfY = Math.max(80, Math.round((window.innerHeight - 52 - 80 - 2 * halfCard - 10) / 2));
+  const halfX = Math.round(halfY * 0.36);
+  const n = 10;
+  return Array.from({ length: n }, (_, i) => {
+    const t = i / (n - 1);
+    return {
+      x: Math.round((-halfX + t * 2 * halfX) * 10) / 10,
+      y: Math.round((-halfY + t * 2 * halfY) * 10) / 10,
+      r: parseFloat((-13 + t * 24).toFixed(1)),
+    };
+  });
+}
+const SPREAD = buildSpread();
 
 // Stacked = all piled at centre
 const STACKED2 = [
@@ -1180,11 +1273,10 @@ const gCards = Array.from(document.querySelectorAll('#galleryDeck .polaroid'));
 
 function applyGallery(raw) {
   const t = easeFan(Math.max(0, Math.min(1, raw)));
-  const sc = Math.min(1, (window.innerHeight - 160) / 450);
   gCards.forEach((card, i) => {
     const s = SPREAD[i], f = STACKED2[i];
-    const x = lerpFan(s.x, f.x, t) * sc;
-    const y = lerpFan(s.y, f.y, t) * sc;
+    const x = lerpFan(s.x, f.x, t);
+    const y = lerpFan(s.y, f.y, t);
     const r = lerpFan(s.r, f.r, t);
     card.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${r}deg)`;
     card.style.zIndex = i + 1;
@@ -1328,6 +1420,44 @@ document.querySelectorAll('.phone-copy').forEach(el => {
     }
   });
 });
+/* ── Lightbox ── */
+const lb       = document.getElementById('lightbox');
+const lbImg    = document.getElementById('lb-img');
+const lbCounter = document.getElementById('lb-counter');
+let lbIndex = 0;
+const photoSrcs = gCards.map(c => c.querySelector('img').src);
+
+function lbShow(i) {
+  lbIndex = ((i % photoSrcs.length) + photoSrcs.length) % photoSrcs.length;
+  lbImg.src = photoSrcs[lbIndex];
+  lbCounter.textContent = (lbIndex + 1) + ' / ' + photoSrcs.length;
+  lb.classList.add('lb-open');
+  lb.setAttribute('aria-hidden', 'false');
+}
+function lbHide() {
+  lb.classList.remove('lb-open');
+  lb.setAttribute('aria-hidden', 'true');
+}
+
+gCards.forEach((card, i) => {
+  card.addEventListener('click', e => { e.stopPropagation(); lbShow(i); });
+});
+
+document.getElementById('lb-close').addEventListener('click', lbHide);
+document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); lbShow(lbIndex - 1); });
+document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); lbShow(lbIndex + 1); });
+lb.addEventListener('click', e => { if (e.target === lb || e.target === lbImg) lbHide(); });
+
+/* swipe to navigate */
+let lbTx = null;
+lb.addEventListener('touchstart', e => { lbTx = e.touches[0].clientX; }, { passive: true });
+lb.addEventListener('touchend', e => {
+  if (lbTx === null) return;
+  const dx = e.changedTouches[0].clientX - lbTx;
+  lbTx = null;
+  if (Math.abs(dx) < 40) return;
+  lbShow(lbIndex + (dx < 0 ? 1 : -1));
+}, { passive: true });
 </script>
 </body>
 </html>
