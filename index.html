@@ -505,6 +505,98 @@
     .phone-copy:active { opacity: 0.6; }
 
     /* ════════════════════════════════════════════
+       SECTION BACKGROUNDS & TEXT CONTRAST
+       ════════════════════════════════════════════ */
+
+    /* Dark navy — redefine vars so all children inherit light text */
+    #intro,
+    #happiness {
+      background: #1A2C47;
+      --blue:        #FFFFFF;
+      --blue-light:  #C4D9E5;
+      --gold:        #A6C8E6;
+      --cream:       rgba(255,255,255,0.07);
+    }
+
+    /* Countdown — soft blue bg, keep dark text */
+    #countdown {
+      background: #A6C8E6;
+      --blue-light:  #1A2C47;
+      --gold:        #1A2C47;
+    }
+    #countdown .cd-box {
+      background: linear-gradient(150deg, rgba(255,255,255,0.55), rgba(255,255,255,0.3));
+      border-color: rgba(26,44,71,0.2);
+      box-shadow: 0 2px 10px rgba(26,44,71,0.1), inset 0 1px 0 rgba(255,255,255,0.55);
+    }
+    #countdown .cd-box::after { background: rgba(255,255,255,0.22); }
+    #countdown .cd-eyebrow-line { background: rgba(26,44,71,0.4); opacity: 1; }
+    #countdown .cal-btn { border-color: #1A2C47; color: #1A2C47; }
+    #countdown .cal-btn:active { background: #1A2C47; color: #A6C8E6; }
+
+    /* Timeline — pale blue bg, keep dark text */
+    #timeline {
+      background: #C4D9E5;
+      --blue-light:  #1A2C47;
+      --gold:        #1A2C47;
+    }
+    #timeline .tl-icon      { background: rgba(255,255,255,0.55); border-color: rgba(26,44,71,0.2); }
+    #timeline .tl-location  { background: rgba(255,255,255,0.35); border-color: rgba(26,44,71,0.14); }
+
+    /* Parents — fix contrast of accent/muted text on cream */
+    #parents .pc-role    { color: #1A2C47; }
+    #parents .pc-amp     { color: #3A6B8E; }
+    #parents .pc-address { color: #2C5F80; }
+
+    /* Divider lines on dark sections */
+    #intro .divider-line,
+    #happiness .divider-line {
+      background: linear-gradient(to right, transparent, rgba(196,217,229,0.4), transparent);
+    }
+    #intro .divider-diamond,
+    #happiness .divider-diamond { background: #A6C8E6; }
+
+    /* Psalm block border on dark happiness */
+    #happiness .psalm-block { border-top-color: rgba(196,217,229,0.22); }
+
+    /* Scroll caret SVG arrows — fix stroke on blue & dark sections */
+    #countdown .scroll-caret svg path,
+    #timeline  .scroll-caret svg path { stroke: rgba(26,44,71,0.65); }
+    #intro     .scroll-caret svg path { stroke: rgba(196,217,229,0.6); }
+
+    /* Nav dots — theme when on dark sections */
+    .nav-dots.on-dark .nav-dot         { border-color: rgba(196,217,229,0.55); }
+    .nav-dots.on-dark .nav-dot.active  { background: #A6C8E6; border-color: #A6C8E6; }
+
+    /* ════════════════════════════════════════════
+       ANIMATED SVG PETALS
+       ════════════════════════════════════════════ */
+    .petals-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .petal {
+      position: absolute;
+      top: -28px;
+      animation: petalDrift linear infinite both;
+      will-change: transform, opacity;
+    }
+
+    @keyframes petalDrift {
+      0%   { transform: translateY(-20px) translateX(0px)    rotate(0deg);    opacity: 0; }
+      8%   { opacity: 1; }
+      25%  { transform: translateY(27vh)  translateX(-22px)  rotate(100deg); }
+      50%  { transform: translateY(54vh)  translateX(18px)   rotate(200deg); }
+      75%  { transform: translateY(78vh)  translateX(-14px)  rotate(295deg); }
+      92%  { opacity: 0.7; }
+      100% { transform: translateY(110vh) translateX(8px)    rotate(385deg);  opacity: 0; }
+    }
+
+    /* ════════════════════════════════════════════
        S4  ·  Timeline
        ════════════════════════════════════════════ */
     #timeline { text-align: center; gap: clamp(18px, 3.5dvh, 32px); padding-bottom: max(80px, calc(var(--b) + 64px)); }
@@ -908,10 +1000,17 @@
        ══════════════════════════════ -->
   <section id="intro">
 
-    <img class="floral-deco" src="assets/floral/flower_branch_right.png" alt="" draggable="false"
-         style="top:0;right:0;opacity:0.18;">
-    <img class="floral-deco" src="assets/floral/flower_branch_left.png" alt="" draggable="false"
-         style="bottom:0;left:0;opacity:0.18;">
+    <!-- Animated SVG petals — light blue on navy -->
+    <div class="petals-layer" aria-hidden="true">
+      <svg class="petal" width="13" viewBox="0 0 15 22" style="left:7%;animation-delay:0s;animation-duration:9s;opacity:.48"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#A6C8E6"/></svg>
+      <svg class="petal" width="10" viewBox="0 0 12 19" style="left:18%;animation-delay:3.2s;animation-duration:12s;opacity:.38"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#C4D9E5"/></svg>
+      <svg class="petal" width="15" viewBox="0 0 16 21" style="left:32%;animation-delay:7s;animation-duration:10s;opacity:.5"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#A6C8E6"/></svg>
+      <svg class="petal" width="11" viewBox="0 0 15 22" style="left:46%;animation-delay:1.5s;animation-duration:8s;opacity:.42"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="9"  viewBox="0 0 12 19" style="left:60%;animation-delay:5.5s;animation-duration:13s;opacity:.35"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#C4D9E5"/></svg>
+      <svg class="petal" width="14" viewBox="0 0 16 21" style="left:74%;animation-delay:2.2s;animation-duration:11s;opacity:.46"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#A6C8E6"/></svg>
+      <svg class="petal" width="12" viewBox="0 0 15 22" style="left:86%;animation-delay:8.5s;animation-duration:9.5s;opacity:.4"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="10" viewBox="0 0 12 19" style="left:41%;animation-delay:10.5s;animation-duration:14s;opacity:.32"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#A6C8E6"/></svg>
+    </div>
 
     <p class="fade-up" style="
         color:var(--blue-light);font-family:'Montserrat',sans-serif;
@@ -955,10 +1054,15 @@
        ══════════════════════════════ -->
   <section id="parents">
 
-    <img class="floral-deco" src="assets/floral/bellflower_branch.png" alt="" draggable="false"
-         style="top:0;left:0;opacity:0.16;">
-    <img class="floral-deco" src="assets/floral/petals_set_1.png" alt="" draggable="false"
-         style="bottom:0;right:0;opacity:0.08;transform:scaleX(-1);">
+    <!-- Animated SVG petals — subtle soft-blue on cream -->
+    <div class="petals-layer" aria-hidden="true">
+      <svg class="petal" width="11" viewBox="0 0 15 22" style="left:6%;animation-delay:0s;animation-duration:11s;opacity:.22"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="9"  viewBox="0 0 12 19" style="left:22%;animation-delay:4s;animation-duration:13s;opacity:.18"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#A6C8E6"/></svg>
+      <svg class="petal" width="13" viewBox="0 0 16 21" style="left:52%;animation-delay:2s;animation-duration:10s;opacity:.2"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="10" viewBox="0 0 15 22" style="left:70%;animation-delay:7s;animation-duration:12s;opacity:.15"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#A6C8E6"/></svg>
+      <svg class="petal" width="8"  viewBox="0 0 12 19" style="left:88%;animation-delay:1s;animation-duration:14s;opacity:.18"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="12" viewBox="0 0 16 21" style="left:37%;animation-delay:9s;animation-duration:11s;opacity:.16"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#A6C8E6"/></svg>
+    </div>
 
     <span class="fade-up" style="
         font-family:'Great Vibes',cursive;
@@ -1003,10 +1107,16 @@
        ══════════════════════════════ -->
   <section id="countdown">
 
-    <img class="floral-deco" src="assets/floral/flower_spray.png" alt="" draggable="false"
-         style="top:0;right:0;opacity:0.15;">
-    <img class="floral-deco" src="assets/floral/leafy_stem.png" alt="" draggable="false"
-         style="bottom:0;left:0;opacity:0.12;">
+    <!-- Animated SVG petals — white on soft blue -->
+    <div class="petals-layer" aria-hidden="true">
+      <svg class="petal" width="13" viewBox="0 0 15 22" style="left:5%;animation-delay:0s;animation-duration:10s;opacity:.5"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="rgba(255,255,255,0.85)"/></svg>
+      <svg class="petal" width="10" viewBox="0 0 12 19" style="left:20%;animation-delay:3s;animation-duration:12.5s;opacity:.42"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="rgba(255,255,255,0.8)"/></svg>
+      <svg class="petal" width="15" viewBox="0 0 16 21" style="left:38%;animation-delay:6.5s;animation-duration:9s;opacity:.55"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="rgba(255,255,255,0.8)"/></svg>
+      <svg class="petal" width="11" viewBox="0 0 15 22" style="left:55%;animation-delay:1.5s;animation-duration:11s;opacity:.45"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="rgba(26,44,71,0.18)"/></svg>
+      <svg class="petal" width="9"  viewBox="0 0 12 19" style="left:72%;animation-delay:8s;animation-duration:13.5s;opacity:.38"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="rgba(255,255,255,0.85)"/></svg>
+      <svg class="petal" width="14" viewBox="0 0 16 21" style="left:87%;animation-delay:4s;animation-duration:10.5s;opacity:.48"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="rgba(255,255,255,0.8)"/></svg>
+      <svg class="petal" width="10" viewBox="0 0 15 22" style="left:44%;animation-delay:11s;animation-duration:14s;opacity:.35"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="rgba(255,255,255,0.75)"/></svg>
+    </div>
 
     <div class="cd-eyebrow fade-up" style="transition-delay:0.05s">
       <div class="cd-eyebrow-line"></div>
@@ -1066,10 +1176,15 @@
        ══════════════════════════════ -->
   <section id="timeline">
 
-    <img class="floral-deco" src="assets/floral/leafy_stem_alt.png" alt="" draggable="false"
-         style="top:0;right:0;opacity:0.12;">
-    <img class="floral-deco" src="assets/floral/small_bud_branch.png" alt="" draggable="false"
-         style="bottom:0;left:0;opacity:0.11;">
+    <!-- Animated SVG petals — subtle navy on pale blue -->
+    <div class="petals-layer" aria-hidden="true">
+      <svg class="petal" width="12" viewBox="0 0 15 22" style="left:4%;animation-delay:1s;animation-duration:11s;opacity:.28"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#1A2C47"/></svg>
+      <svg class="petal" width="9"  viewBox="0 0 12 19" style="left:17%;animation-delay:5s;animation-duration:13s;opacity:.22"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="14" viewBox="0 0 16 21" style="left:40%;animation-delay:2.5s;animation-duration:10s;opacity:.3"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#1A2C47"/></svg>
+      <svg class="petal" width="10" viewBox="0 0 15 22" style="left:62%;animation-delay:8s;animation-duration:12s;opacity:.24"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="13" viewBox="0 0 16 21" style="left:80%;animation-delay:0s;animation-duration:9.5s;opacity:.28"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#1A2C47"/></svg>
+      <svg class="petal" width="8"  viewBox="0 0 12 19" style="left:53%;animation-delay:10s;animation-duration:14s;opacity:.2"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#8EB1D1"/></svg>
+    </div>
 
     <div class="timeline-heading fade-up" style="transition-delay:0.1s">
       <svg class="flourish-svg" width="50" height="18" viewBox="0 0 60 20" fill="none" aria-hidden="true">
@@ -1182,10 +1297,13 @@
       <div class="gallery-track">
         <div class="gallery-sticky">
 
-          <img class="floral-deco" src="assets/floral/petals_set_2.png" alt="" draggable="false"
-               style="top:0;left:0;opacity:0.08;">
-          <img class="floral-deco" src="assets/floral/petals_set_3.png" alt="" draggable="false"
-               style="bottom:0;right:0;opacity:0.08;transform:scaleX(-1) scaleY(-1);">
+          <!-- Animated SVG petals — very subtle on cream/gallery -->
+          <div class="petals-layer" aria-hidden="true">
+            <svg class="petal" width="10" viewBox="0 0 15 22" style="left:8%;animation-delay:0s;animation-duration:12s;opacity:.18"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
+            <svg class="petal" width="8"  viewBox="0 0 12 19" style="left:35%;animation-delay:4s;animation-duration:14s;opacity:.14"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#A6C8E6"/></svg>
+            <svg class="petal" width="12" viewBox="0 0 16 21" style="left:68%;animation-delay:7s;animation-duration:11s;opacity:.18"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#8EB1D1"/></svg>
+            <svg class="petal" width="9"  viewBox="0 0 15 22" style="left:88%;animation-delay:2s;animation-duration:13.5s;opacity:.15"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#A6C8E6"/></svg>
+          </div>
 
           <div class="photo-deck" id="galleryDeck">
             <div class="polaroid"><img src="Photos/9.jpeg"  alt="Ittymathew &amp; Rosemary"/></div>
@@ -1215,10 +1333,17 @@
        ══════════════════════════════ -->
   <section id="happiness">
 
-    <img class="floral-deco" src="assets/floral/single_flower.png" alt="" draggable="false"
-         style="top:0;left:0;opacity:0.13;">
-    <img class="floral-deco" src="assets/floral/single_bud.png" alt="" draggable="false"
-         style="bottom:0;right:0;opacity:0.11;transform:scaleX(-1);">
+    <!-- Animated SVG petals — light blue on navy -->
+    <div class="petals-layer" aria-hidden="true">
+      <svg class="petal" width="13" viewBox="0 0 15 22" style="left:6%;animation-delay:0.5s;animation-duration:10s;opacity:.46"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#A6C8E6"/></svg>
+      <svg class="petal" width="10" viewBox="0 0 12 19" style="left:21%;animation-delay:3.5s;animation-duration:13s;opacity:.36"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#C4D9E5"/></svg>
+      <svg class="petal" width="15" viewBox="0 0 16 21" style="left:35%;animation-delay:7.5s;animation-duration:9.5s;opacity:.5"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#A6C8E6"/></svg>
+      <svg class="petal" width="11" viewBox="0 0 15 22" style="left:52%;animation-delay:1s;animation-duration:8.5s;opacity:.4"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="9"  viewBox="0 0 12 19" style="left:67%;animation-delay:5s;animation-duration:12.5s;opacity:.34"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#C4D9E5"/></svg>
+      <svg class="petal" width="14" viewBox="0 0 16 21" style="left:79%;animation-delay:2.5s;animation-duration:11.5s;opacity:.44"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#A6C8E6"/></svg>
+      <svg class="petal" width="12" viewBox="0 0 15 22" style="left:91%;animation-delay:9s;animation-duration:10s;opacity:.38"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="10" viewBox="0 0 12 19" style="left:44%;animation-delay:11s;animation-duration:13s;opacity:.3"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#A6C8E6"/></svg>
+    </div>
 
     <div class="divider fade-up" style="transition-delay:0.05s">
       <div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div>
@@ -1347,9 +1472,11 @@
 
 <script>
 /* ── Nav dots ── */
-const SECTIONS = ['intro','parents','countdown','timeline','gallery','happiness'];
-const dots     = document.querySelectorAll('.nav-dot');
-const scroller = document.getElementById('scroller');
+const SECTIONS      = ['intro','parents','countdown','timeline','gallery','happiness'];
+const DARK_SECTIONS = new Set(['intro','happiness']);
+const dots          = document.querySelectorAll('.nav-dot');
+const navDots       = document.querySelector('.nav-dots');
+const scroller      = document.getElementById('scroller');
 
 dots.forEach((dot, i) => {
   dot.addEventListener('click', () => {
@@ -1362,6 +1489,7 @@ SECTIONS.forEach((id, i) => {
     if (entries[0].isIntersecting) {
       dots.forEach(d => d.classList.remove('active'));
       dots[i].classList.add('active');
+      navDots.classList.toggle('on-dark', DARK_SECTIONS.has(id));
     }
   }, { root: scroller, threshold: 0.5 }).observe(document.getElementById(id));
 });
