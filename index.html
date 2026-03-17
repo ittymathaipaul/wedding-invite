@@ -657,6 +657,14 @@
       pointer-events: none;
     }
 
+    /* ─── Floral decorations ────────────────────── */
+    .floral-deco {
+      position: absolute;
+      width: min(150px, 40vw);
+      pointer-events: none;
+      display: block;
+    }
+
     /* ─── Roman pillar ─────────────────────────── */
     .tl-pillar {
       display: flex;
@@ -900,22 +908,10 @@
        ══════════════════════════════ -->
   <section id="intro">
 
-    <!-- top-right botanical -->
-    <svg style="position:absolute;top:0;right:0;width:min(130px,35vw);opacity:0.17;" viewBox="0 0 160 180" fill="none" aria-hidden="true">
-      <path d="M140 10 Q120 40 80 60 Q50 75 20 100" stroke="#1A2C47" stroke-width="1.2" fill="none"/>
-      <ellipse cx="80" cy="60" rx="16" ry="9" fill="#1A2C47" opacity="0.6" transform="rotate(-30 80 60)"/>
-      <ellipse cx="105" cy="38" rx="12" ry="7" fill="#1A2C47" opacity="0.5" transform="rotate(-10 105 38)"/>
-      <ellipse cx="55" cy="82" rx="14" ry="8" fill="#1A2C47" opacity="0.45" transform="rotate(-50 55 82)"/>
-      <path d="M100 25 Q110 15 130 8" stroke="#1A2C47" stroke-width="0.9" fill="none"/>
-    </svg>
-
-    <!-- bottom-left botanical -->
-    <svg style="position:absolute;bottom:0;left:0;width:min(120px,32vw);opacity:0.17;" viewBox="0 0 160 180" fill="none" aria-hidden="true">
-      <path d="M20 170 Q40 140 70 120 Q100 100 140 80" stroke="#1A2C47" stroke-width="1.2" fill="none"/>
-      <ellipse cx="70" cy="120" rx="16" ry="9" fill="#1A2C47" opacity="0.6" transform="rotate(30 70 120)"/>
-      <ellipse cx="45" cy="142" rx="12" ry="7" fill="#1A2C47" opacity="0.5" transform="rotate(10 45 142)"/>
-      <ellipse cx="105" cy="98" rx="14" ry="8" fill="#1A2C47" opacity="0.45" transform="rotate(50 105 98)"/>
-    </svg>
+    <img class="floral-deco" src="assets/floral/flower_branch_right.png" alt="" draggable="false"
+         style="top:0;right:0;opacity:0.18;">
+    <img class="floral-deco" src="assets/floral/flower_branch_left.png" alt="" draggable="false"
+         style="bottom:0;left:0;opacity:0.18;">
 
     <p class="fade-up" style="
         color:var(--blue-light);font-family:'Montserrat',sans-serif;
@@ -959,11 +955,10 @@
        ══════════════════════════════ -->
   <section id="parents">
 
-    <svg style="position:absolute;top:0;left:0;width:min(110px,30vw);opacity:0.12;" viewBox="0 0 160 180" fill="none" aria-hidden="true">
-      <path d="M20 10 Q40 40 80 60 Q110 75 140 100" stroke="#1A2C47" stroke-width="1.2" fill="none"/>
-      <ellipse cx="80" cy="60" rx="16" ry="9" fill="#1A2C47" opacity="0.55" transform="rotate(30 80 60)"/>
-      <ellipse cx="50" cy="38" rx="12" ry="7" fill="#1A2C47" opacity="0.45" transform="rotate(10 50 38)"/>
-    </svg>
+    <img class="floral-deco" src="assets/floral/bellflower_branch.png" alt="" draggable="false"
+         style="top:0;left:0;opacity:0.16;">
+    <img class="floral-deco" src="assets/floral/petals_set_1.png" alt="" draggable="false"
+         style="bottom:0;right:0;opacity:0.08;transform:scaleX(-1);">
 
     <span class="fade-up" style="
         font-family:'Great Vibes',cursive;
@@ -1007,6 +1002,11 @@
        S3  ·  Countdown
        ══════════════════════════════ -->
   <section id="countdown">
+
+    <img class="floral-deco" src="assets/floral/flower_spray.png" alt="" draggable="false"
+         style="top:0;right:0;opacity:0.15;">
+    <img class="floral-deco" src="assets/floral/leafy_stem.png" alt="" draggable="false"
+         style="bottom:0;left:0;opacity:0.12;">
 
     <div class="cd-eyebrow fade-up" style="transition-delay:0.05s">
       <div class="cd-eyebrow-line"></div>
@@ -1065,6 +1065,11 @@
        S4  ·  Timeline
        ══════════════════════════════ -->
   <section id="timeline">
+
+    <img class="floral-deco" src="assets/floral/leafy_stem_alt.png" alt="" draggable="false"
+         style="top:0;right:0;opacity:0.12;">
+    <img class="floral-deco" src="assets/floral/small_bud_branch.png" alt="" draggable="false"
+         style="bottom:0;left:0;opacity:0.11;">
 
     <div class="timeline-heading fade-up" style="transition-delay:0.1s">
       <svg class="flourish-svg" width="50" height="18" viewBox="0 0 60 20" fill="none" aria-hidden="true">
@@ -1177,6 +1182,11 @@
       <div class="gallery-track">
         <div class="gallery-sticky">
 
+          <img class="floral-deco" src="assets/floral/petals_set_2.png" alt="" draggable="false"
+               style="top:0;left:0;opacity:0.08;">
+          <img class="floral-deco" src="assets/floral/petals_set_3.png" alt="" draggable="false"
+               style="bottom:0;right:0;opacity:0.08;transform:scaleX(-1) scaleY(-1);">
+
           <div class="photo-deck" id="galleryDeck">
             <div class="polaroid"><img src="Photos/9.jpeg"  alt="Ittymathew &amp; Rosemary"/></div>
             <div class="polaroid"><img src="Photos/8.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
@@ -1205,11 +1215,10 @@
        ══════════════════════════════ -->
   <section id="happiness">
 
-    <svg style="position:absolute;bottom:0;right:0;width:min(120px,32vw);opacity:0.13;" viewBox="0 0 160 180" fill="none" aria-hidden="true">
-      <path d="M140 170 Q110 140 80 120 Q50 100 20 80" stroke="#1A2C47" stroke-width="1.2" fill="none"/>
-      <ellipse cx="80" cy="120" rx="16" ry="9" fill="#1A2C47" opacity="0.6" transform="rotate(-30 80 120)"/>
-      <ellipse cx="110" cy="142" rx="12" ry="7" fill="#1A2C47" opacity="0.45" transform="rotate(-10 110 142)"/>
-    </svg>
+    <img class="floral-deco" src="assets/floral/single_flower.png" alt="" draggable="false"
+         style="top:0;left:0;opacity:0.13;">
+    <img class="floral-deco" src="assets/floral/single_bud.png" alt="" draggable="false"
+         style="bottom:0;right:0;opacity:0.11;transform:scaleX(-1);">
 
     <div class="divider fade-up" style="transition-delay:0.05s">
       <div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div>
