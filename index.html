@@ -861,7 +861,7 @@
       position: fixed;
       inset: 0;
       z-index: 950;
-      background: #EAECEE;
+      background: #0d1825;
       overflow: hidden;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
@@ -869,13 +869,14 @@
     }
     #env.env-done { opacity: 0; pointer-events: none; }
 
-    /* the two half-panels sit side by side */
+    /* two half-panels side by side */
     #env-panels {
       position: absolute;
       inset: 0;
       display: flex;
     }
     .env-panel {
+      position: relative;
       width: 50vw;
       height: 100dvh;
       flex-shrink: 0;
@@ -891,71 +892,97 @@
       pointer-events: none;
       user-select: none;
     }
-    /* anchor images to inner edge so they meet cleanly at centre */
-    #env-L img { object-position: right center; }
-    #env-R img { object-position: left center; }
+    /* each panel shows its own half of the single banner */
+    #env-L img { object-position: left center; }
+    #env-R img { object-position: right center; }
+
+    /* dark gradient so text stays legible over any photo */
+    .env-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        175deg,
+        rgba(26,44,71,0.15) 0%,
+        rgba(26,44,71,0.62) 100%
+      );
+      pointer-events: none;
+    }
 
     /* prevent sub-pixel seam between panels */
     #env-L { margin-right: -1px; }
 
-    /* opening: curtain pulls apart — left slides left, right slides right */
-    #env.env-open #env-L {
-      transform: translateX(-102%);
-    }
-    #env.env-open #env-R {
-      transform: translateX(102%);
-      transition-delay: 0.1s;
-    }
+    /* curtain pulls apart */
+    #env.env-open #env-L { transform: translateX(-102%); }
+    #env.env-open #env-R { transform: translateX(102%); transition-delay: 0.1s; }
 
-    /* wax seal */
-    #env-seal {
+    /* ── CTA overlay (above panels, z-index > ::after) ── */
+    #env-cta {
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(170px, 44vw);
-      z-index: 5;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: max(72px, calc(env(safe-area-inset-bottom, 0px) + 56px));
       pointer-events: none;
-    }
-    #env-seal img { width: 100%; display: block; user-select: none; }
-
-    /* seal break on open */
-    #env.env-open #env-seal {
-      animation: sealBreak 0.8s ease forwards;
-    }
-    @keyframes sealBreak {
-      0%   { transform: translate(-50%,-50%) scale(1)    rotate(0deg);   opacity: 1; }
-      25%  { transform: translate(-50%,-50%) scale(1.18) rotate(6deg);   opacity: 1; }
-      55%  { transform: translate(-50%,-50%) scale(1.08) rotate(-4deg);  opacity: 0.7; }
-      100% { transform: translate(-50%,-50%) scale(1.5)  rotate(2deg);   opacity: 0; }
-    }
-
-    /* hint text */
-    #env-hint {
-      position: absolute;
-      bottom: max(64px, calc(env(safe-area-inset-bottom, 0px) + 48px));
-      left: 0; right: 0;
+      z-index: 10;
       text-align: center;
+    }
+
+    #env-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 13vw, 5.8rem);
+      color: #fff;
+      line-height: 1.1;
+      text-shadow: 0 2px 28px rgba(0,0,0,0.45);
+      opacity: 0;
+      animation: envNamesIn 1.5s ease 0.5s forwards;
+      margin-bottom: clamp(28px, 6vh, 44px);
+    }
+    .env-amp {
+      font-size: 0.62em;
+      color: #A6C8E6;
+    }
+
+    #env-tap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation:
+        envTapAppear 1s ease 2s    forwards,
+        envTapPulse  2.8s ease-in-out 3s infinite;
+    }
+    .env-tap-line {
+      width: 26px; height: 1px;
+      background: rgba(255,255,255,0.45);
+    }
+    #env-tap span {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.58rem, 2vw, 0.68rem);
+      font-size: clamp(0.58rem, 2vw, 0.66rem);
       font-weight: 400;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.32em;
       text-transform: uppercase;
-      color: rgba(26,44,71,0.55);
-      animation: envHintPulse 2.4s ease-in-out infinite;
-      pointer-events: none;
+      color: rgba(255,255,255,0.88);
     }
-    #env-hint::before {
-      content: '';
-      display: block;
-      width: 24px; height: 1px;
-      background: rgba(26,44,71,0.3);
-      margin: 0 auto 12px;
+
+    /* hide CTA as curtains open */
+    #env.env-open #env-cta { opacity: 0; transition: opacity 0.2s; }
+
+    @keyframes envNamesIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    @keyframes envHintPulse {
-      0%,100% { opacity: 0.4; transform: translateY(0); }
-      50%     { opacity: 1;   transform: translateY(-5px); }
+    @keyframes envTapAppear {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
-    #env.env-open #env-hint { opacity: 0; transition: opacity 0.2s; }
+    @keyframes envTapPulse {
+      0%, 100% { opacity: 0.45; transform: translateY(0); }
+      50%      { opacity: 1;    transform: translateY(-6px); }
+    }
 
   </style>
 </head>
@@ -963,18 +990,29 @@
 
 <!-- ── Envelope intro ── -->
 <div id="env" role="button" aria-label="Tap to open the invitation">
+
+  <!-- single banner photo split across two curtain panels -->
   <div id="env-panels">
     <div class="env-panel" id="env-L">
-      <img src="assets/left.png" alt="" draggable="false" />
+      <img src="Photos/1.jpg" alt="" draggable="false" />
     </div>
     <div class="env-panel" id="env-R">
-      <img src="assets/right.png" alt="" draggable="false" />
+      <img src="Photos/1.jpg" alt="" draggable="false" />
     </div>
   </div>
-  <div id="env-seal">
-    <img src="assets/logo.png" alt="Seal" draggable="false" />
+
+  <!-- couple name + tap-to-open text layered over the photo -->
+  <div id="env-cta">
+    <p id="env-names">Ittymathew <span class="env-amp">&amp;</span> Rosemary</p>
+    <div id="env-tap">
+      <div class="env-tap-line"></div>
+      <span>Tap to Open</span>
+      <svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true">
+        <path d="M1 1L7 7L13 1" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
   </div>
-  <p id="env-hint">Tap to open</p>
+
 </div>
 
 <nav class="nav-dots" aria-label="Page navigation">
