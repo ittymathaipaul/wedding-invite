@@ -773,11 +773,17 @@
       position: absolute;
       inset: 0;
       display: flex;
-      align-items: center;      /* vertically centre the panels */
+      align-items: center;
       justify-content: center;
     }
     .env-panel {
-      flex: 1;
+      /*
+       * Size each panel so the image shows at its natural aspect ratio
+       * filling the full viewport height — capped at 50vw on narrow screens.
+       * Image is 460 × 1044, so panel width = dvh × (460/1044).
+       */
+      width: min(calc(100dvh * 460 / 1044), 50vw);
+      flex-shrink: 0;
       overflow: hidden;
       will-change: transform;
       transition: transform 1.8s cubic-bezier(0.7, 0, 0.3, 1);
@@ -789,10 +795,6 @@
       pointer-events: none;
       user-select: none;
     }
-    /* left panel: anchor image to its left edge */
-    #env-L img { object-position: left center; }
-    /* right panel: anchor image to its right edge */
-    #env-R img { object-position: right center; }
 
     #env-L { transform-origin: left center; }
     #env-R { transform-origin: right center; }
