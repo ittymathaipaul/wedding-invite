@@ -755,9 +755,119 @@
       color: rgba(255,255,255,0.5);
     }
 
+    /* ─── Envelope intro ─────────────────────── */
+    #env {
+      position: fixed;
+      inset: 0;
+      z-index: 950;
+      background: #EAECEE;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.65s ease;
+    }
+    #env.env-done { opacity: 0; pointer-events: none; }
+
+    /* the two half-panels sit side by side */
+    #env-panels {
+      position: absolute;
+      inset: 0;
+      display: flex;
+    }
+    .env-panel {
+      flex: 1;
+      overflow: hidden;
+      will-change: transform;
+      transition: transform 0.9s cubic-bezier(0.7, 0, 0.3, 1);
+    }
+    .env-panel img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+    }
+    #env-L { transform-origin: left center; }
+    #env-R { transform-origin: right center; }
+
+    /* opening: fold each panel back on its hinge */
+    #env.env-open #env-L {
+      transform: perspective(900px) rotateY(-105deg);
+    }
+    #env.env-open #env-R {
+      transform: perspective(900px) rotateY(105deg);
+      transition-delay: 0.08s;
+    }
+
+    /* wax seal */
+    #env-seal {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(170px, 44vw);
+      z-index: 5;
+      pointer-events: none;
+    }
+    #env-seal img { width: 100%; display: block; user-select: none; }
+
+    /* seal break on open */
+    #env.env-open #env-seal {
+      animation: sealBreak 0.45s ease forwards;
+    }
+    @keyframes sealBreak {
+      0%   { transform: translate(-50%,-50%) scale(1)    rotate(0deg);   opacity: 1; }
+      25%  { transform: translate(-50%,-50%) scale(1.18) rotate(6deg);   opacity: 1; }
+      55%  { transform: translate(-50%,-50%) scale(1.08) rotate(-4deg);  opacity: 0.7; }
+      100% { transform: translate(-50%,-50%) scale(1.5)  rotate(2deg);   opacity: 0; }
+    }
+
+    /* hint text */
+    #env-hint {
+      position: absolute;
+      bottom: max(64px, calc(env(safe-area-inset-bottom, 0px) + 48px));
+      left: 0; right: 0;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.58rem, 2vw, 0.68rem);
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(26,44,71,0.55);
+      animation: envHintPulse 2.4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    #env-hint::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: rgba(26,44,71,0.3);
+      margin: 0 auto 12px;
+    }
+    @keyframes envHintPulse {
+      0%,100% { opacity: 0.4; transform: translateY(0); }
+      50%     { opacity: 1;   transform: translateY(-5px); }
+    }
+    #env.env-open #env-hint { opacity: 0; transition: opacity 0.2s; }
+
   </style>
 </head>
 <body>
+
+<!-- ── Envelope intro ── -->
+<div id="env" role="button" aria-label="Tap to open the invitation">
+  <div id="env-panels">
+    <div class="env-panel" id="env-L">
+      <img src="assets/left.png" alt="" draggable="false" />
+    </div>
+    <div class="env-panel" id="env-R">
+      <img src="assets/right.png" alt="" draggable="false" />
+    </div>
+  </div>
+  <div id="env-seal">
+    <img src="assets/logo.png" alt="Seal" draggable="false" />
+  </div>
+  <p id="env-hint">Tap to open</p>
+</div>
 
 <nav class="nav-dots" aria-label="Page navigation">
   <div class="nav-dot active" data-target="intro"     title="Introduction"></div>
@@ -1469,6 +1579,28 @@ lb.addEventListener('touchend', e => {
   if (Math.abs(dx) < 40) return;
   lbShow(lbIndex + (dx < 0 ? 1 : -1));
 }, { passive: true });
+
+/* ── Envelope intro ── */
+(function () {
+  const env = document.getElementById('env');
+  let opened = false;
+
+  function openEnvelope() {
+    if (opened) return;
+    opened = true;
+
+    env.classList.add('env-open');
+
+    // once panels have swung open, fade out and remove
+    setTimeout(function () {
+      env.classList.add('env-done');
+      setTimeout(function () { env.remove(); }, 680);
+    }, 1050);
+  }
+
+  env.addEventListener('click',      openEnvelope);
+  env.addEventListener('touchstart', openEnvelope, { passive: true });
+}());
 
 </script>
 </body>
