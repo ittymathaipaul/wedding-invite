@@ -790,9 +790,16 @@
       pointer-events: none;
       user-select: none;
     }
-    /* anchor each image to its outer edge so vines are always visible */
-    #env-L img { object-position: left center; }
-    #env-R img { object-position: right center; }
+    /*
+     * Anchor each image to its INNER (fold) edge so the actual fold lines
+     * of both images meet exactly at the panel boundary (50% of viewport).
+     * This eliminates the centre mismatch.
+     */
+    #env-L img { object-position: right center; }
+    #env-R img { object-position: left center; }
+
+    /* prevent sub-pixel seam between panels */
+    #env-L { margin-right: -1px; }
 
     #env-L { transform-origin: left center; }
     #env-R { transform-origin: right center; }
