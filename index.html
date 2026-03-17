@@ -1422,6 +1422,7 @@ applyGallery(0); // initialise spread
 
 // gallery section: driven by its own inner scroller
 const galleryScroller = document.getElementById('galleryScroller');
+const gallerySection  = document.getElementById('gallery');
 let galleryAdvanced = false;
 
 galleryScroller.addEventListener('scroll', () => {
@@ -1438,6 +1439,35 @@ galleryScroller.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
+/*
+ * Intercept wheel & touch events on the gallery section so the outer
+ * snap-scroller never receives them while the animation is in progress.
+ * The outer scroller only takes over at the two natural boundaries:
+ *   – scrolling UP  when the inner scroller is already at the top  → go to previous section
+ *   – scrolling DOWN after the animation has finished (galleryAdvanced) → go to next section
+ */
+gallerySection.addEventListener('wheel', (e) => {
+  const atTop = galleryScroller.scrollTop <= 0;
+  if ((atTop && e.deltaY < 0) || galleryAdvanced) return; // hand off to outer
+  e.preventDefault();
+  galleryScroller.scrollTop += e.deltaY;
+}, { passive: false });
+
+let glTouchY = null;
+gallerySection.addEventListener('touchstart', (e) => {
+  glTouchY = e.touches[0].clientY;
+}, { passive: true });
+gallerySection.addEventListener('touchmove', (e) => {
+  if (glTouchY === null) return;
+  const dy = glTouchY - e.touches[0].clientY;
+  const atTop = galleryScroller.scrollTop <= 0;
+  if ((atTop && dy < 0) || galleryAdvanced) return; // hand off to outer
+  e.preventDefault();
+  galleryScroller.scrollTop += dy;
+  glTouchY = e.touches[0].clientY;
+}, { passive: false });
+gallerySection.addEventListener('touchend', () => { glTouchY = null; }, { passive: true });
+
 // reset gallery when it comes back into view
 new IntersectionObserver(entries => {
   if (entries[0].isIntersecting) {
@@ -1445,7 +1475,7 @@ new IntersectionObserver(entries => {
     galleryScroller.scrollTop = 0;
     applyGallery(0);
   }
-}, { root: scroller, threshold: 0.5 }).observe(document.getElementById('gallery'));
+}, { root: scroller, threshold: 0.5 }).observe(gallerySection);
 
 /* ── Fade-up ── */
 document.querySelectorAll('.fade-up').forEach(el => {
