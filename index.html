@@ -881,37 +881,30 @@
       flex-shrink: 0;
       overflow: hidden;
       will-change: transform;
-      transition: transform 1.8s cubic-bezier(0.7, 0, 0.3, 1);
+      transition: transform 1.8s cubic-bezier(0.77, 0, 0.18, 1);
     }
     .env-panel img {
       width: 100%;
       height: 100%;
-      object-fit: cover;        /* fill the panel, crop excess */
+      object-fit: cover;
       display: block;
       pointer-events: none;
       user-select: none;
     }
-    /*
-     * Anchor each image to its INNER (fold) edge so the actual fold lines
-     * of both images meet exactly at the panel boundary (50% of viewport).
-     * This eliminates the centre mismatch.
-     */
+    /* anchor images to inner edge so they meet cleanly at centre */
     #env-L img { object-position: right center; }
     #env-R img { object-position: left center; }
 
     /* prevent sub-pixel seam between panels */
     #env-L { margin-right: -1px; }
 
-    #env-L { transform-origin: left center; }
-    #env-R { transform-origin: right center; }
-
-    /* opening: fold each panel back on its hinge */
+    /* opening: curtain pulls apart — left slides left, right slides right */
     #env.env-open #env-L {
-      transform: perspective(900px) rotateY(-105deg);
+      transform: translateX(-102%);
     }
     #env.env-open #env-R {
-      transform: perspective(900px) rotateY(105deg);
-      transition-delay: 0.08s;
+      transform: translateX(102%);
+      transition-delay: 0.1s;
     }
 
     /* wax seal */
