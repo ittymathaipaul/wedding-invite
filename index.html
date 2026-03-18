@@ -863,12 +863,9 @@
     #env.env-fade { opacity: 0; pointer-events: none; }
     #env.env-done { display: none; }
 
-    /* 3-D scene — perspective applied here so the flap rotates in 3-D */
     .env-scene {
       position: absolute;
       inset: 0;
-      perspective: 900px;
-      perspective-origin: center top;
     }
 
     /* envelope wrapper — full screen, both images cover like object-fit:cover */
@@ -898,14 +895,12 @@
     .env-flap-pivot {
       position: absolute;
       inset: 0;
-      transform-origin: top center;
-      transform: rotateX(0deg);
-      transition: transform 0.9s cubic-bezier(0.42, 0, 0.58, 1);
-      backface-visibility: hidden;
+      transform: translateY(0);
+      transition: transform 1.1s cubic-bezier(0.42, 0, 0.58, 1);
       filter: drop-shadow(0 12px 32px rgba(0,0,0,0.6)) drop-shadow(0 4px 10px rgba(0,0,0,0.4));
     }
     #env.env-open .env-flap-pivot {
-      transform: rotateX(-180deg);
+      transform: translateY(-110%);
     }
 
     .env-flap {
@@ -915,7 +910,6 @@
       display: block;
       user-select: none;
       pointer-events: none;
-      backface-visibility: hidden;
     }
 
     /* ── tap hint ── */
