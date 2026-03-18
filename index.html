@@ -139,52 +139,39 @@
       flex-shrink: 0;
     }
 
-    /* ─── Photos section ────────────────────── */
+    /* ─── Photos section — card stack ──────── */
+    #gallery {
+      gap: clamp(18px, 3.5dvh, 28px);
+    }
+
     .photo-deck {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      width: min(190px, 52vw);
+      height: min(270px, 70vw);
+      margin: 0 auto;
+      flex-shrink: 0;
     }
 
     .polaroid {
       position: absolute;
-      top: 50%; left: 50%;
-      width: min(128px, 35vw);
+      inset: 0;
       background: #fff;
       padding: 6px 6px 24px;
       box-shadow: 0 4px 22px rgba(0,0,0,0.17), 0 1px 5px rgba(0,0,0,0.08);
       border-radius: 2px;
-      will-change: transform;
+      will-change: transform, filter;
       transform-origin: center center;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: box-shadow 0.18s;
-    }
-    .polaroid:active {
-      box-shadow: 0 8px 36px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.12);
     }
 
     .polaroid img {
       width: 100%;
-      aspect-ratio: 3/4;
+      height: 100%;
       object-fit: cover;
       display: block;
       border-radius: 1px;
     }
-
-    /* ─── Gallery inner scroll ──────────────── */
-    #gallery {
-      padding: 0;
-      overflow: hidden;
-    }
-    .gallery-scroller {
-      position: absolute;
-      inset: 0;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-y: contain;
-      scrollbar-width: none;
-    }
-    .gallery-scroller::-webkit-scrollbar { display: none; }
 
     .gallery-track {
       height: 150dvh;
@@ -1288,39 +1275,33 @@
        S5  ·  Gallery (spread → stack)
        ══════════════════════════════ -->
   <section id="gallery">
-    <div class="gallery-scroller" id="galleryScroller">
-      <div class="gallery-track">
-        <div class="gallery-sticky">
 
-          <!-- Animated SVG petals — very subtle on cream/gallery -->
-          <div class="petals-layer" aria-hidden="true">
-            <svg class="petal" width="10" viewBox="0 0 15 22" style="left:8%;animation-delay:0s;animation-duration:12s;opacity:.09"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
-            <svg class="petal" width="38" viewBox="0 0 12 19" style="left:30%;animation-delay:4s;animation-duration:14s;opacity:.07"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#A6C8E6"/></svg>
-            <svg class="petal" width="12" viewBox="0 0 16 21" style="left:68%;animation-delay:7s;animation-duration:11s;opacity:.09"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#8EB1D1"/></svg>
-            <svg class="petal" width="9"  viewBox="0 0 15 22" style="left:88%;animation-delay:2s;animation-duration:13.5s;opacity:.08"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#A6C8E6"/></svg>
-          </div>
-
-          <div class="photo-deck" id="galleryDeck">
-            <div class="polaroid"><img src="Photos/9.jpeg"  alt="Ittymathew &amp; Rosemary"/></div>
-            <div class="polaroid"><img src="Photos/8.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
-            <div class="polaroid"><img src="Photos/7.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
-            <div class="polaroid"><img src="Photos/6.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
-            <div class="polaroid"><img src="Photos/5.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
-            <div class="polaroid"><img src="Photos/4.png"   alt="Ittymathew &amp; Rosemary"/></div>
-            <div class="polaroid"><img src="Photos/3.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
-            <div class="polaroid"><img src="Photos/2.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
-            <div class="polaroid"><img src="Photos/1.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
-          </div>
-
-          <p class="photos-label" id="galleryLabel">Scroll to continue</p>
-
-          <div class="scroll-caret">
-            <svg width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true"><path d="M1 1L7 7L13 1" stroke="#8EB1D1" stroke-width="1.4" stroke-linecap="round"/></svg>
-          </div>
-
-        </div>
-      </div>
+    <!-- Animated SVG petals — very subtle on cream/gallery -->
+    <div class="petals-layer" aria-hidden="true">
+      <svg class="petal" width="10" viewBox="0 0 15 22" style="left:8%;animation-delay:0s;animation-duration:12s;opacity:.09"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="38" viewBox="0 0 12 19" style="left:30%;animation-delay:4s;animation-duration:14s;opacity:.07"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#A6C8E6"/></svg>
+      <svg class="petal" width="12" viewBox="0 0 16 21" style="left:68%;animation-delay:7s;animation-duration:11s;opacity:.09"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#8EB1D1"/></svg>
+      <svg class="petal" width="9"  viewBox="0 0 15 22" style="left:88%;animation-delay:2s;animation-duration:13.5s;opacity:.08"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#A6C8E6"/></svg>
     </div>
+
+    <div class="photo-deck" id="galleryDeck">
+      <div class="polaroid"><img src="Photos/9.jpeg"  alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/8.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/7.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/6.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/5.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/4.png"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/3.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/2.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+      <div class="polaroid"><img src="Photos/1.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
+    </div>
+
+    <p class="photos-label fade-up">Tap to browse</p>
+
+    <div class="scroll-caret">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true"><path d="M1 1L7 7L13 1" stroke="#8EB1D1" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </div>
+
   </section>
 
   <!-- ══════════════════════════════
@@ -1490,138 +1471,71 @@ SECTIONS.forEach((id, i) => {
 });
 
 
-/* ── Shared animation helpers ── */
-function lerpFan(a, b, t) { return a + (b - a) * t; }
-function easeFan(t) { return t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
+/* ── Gallery: auto-advancing card stack ── */
+(function () {
+  const deck  = document.getElementById('galleryDeck');
+  if (!deck) return;
+  const cards = Array.from(deck.querySelectorAll('.polaroid'));
+  const n     = cards.length;
+  let   topIdx  = 0;
+  let   busy    = false;
+  let   flipDir = 1;
 
-/* ── Gallery: 3 × 3 distorted grid spread ── */
-function buildSpread() {
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  const safeTop = 52, safeBottom = 80;
-  const safeH   = vh - safeTop - safeBottom;
-  const cardH   = Math.min(vw * 0.35, 128) * 4 / 3 + 30;
-  const halfCard = cardH / 2;
-  // Column x-offset and row y-offset from safe-area center
-  const colX    = Math.round(vw  * 0.31);
-  const centerY = safeTop + safeH / 2 - vh / 2;   // safe-centre relative to viewport centre
-  const rowY    = Math.round(safeH / 2 - halfCard - 10);
-  // Grid slots: [col, row] — col/row in {-1, 0, 1}
-  const grid = [
-    [-1,-1],[0,-1],[1,-1],   // top row
-    [-1, 0],[0, 0],[1, 0],   // mid row
-    [-1, 1],[0, 1],[1, 1],   // bottom row
-  ];
-  // Per-card positional jitter and rotation for the hand-scattered feel
-  const jx = [-3, +5, -4, +2, -5, +3, -2, +4, -3];
-  const jy = [+4, -5, +3, +5, -3, -4, +3, -4, +5];
-  const rr = [-8, +5,+11, -6,-10, +7, +8, -3, -9];
-  return grid.map(([c, r], i) => ({
-    x: Math.round(c * colX   + jx[i]),
-    y: Math.round(centerY + r * rowY + jy[i]),
-    r: rr[i],
-  }));
-}
-const SPREAD = buildSpread();
+  /* Natural tilt for each card — casual dumped feel */
+  const tilts = [2, -3, 4, -2, 5, -1, 3, -4, 2];
 
-// Stacked = all piled at centre
-const STACKED2 = [
-  { x:  3, y:  5, r:  9 },
-  { x: -4, y: -3, r: -7 },
-  { x:  6, y:  4, r: 13 },
-  { x: -5, y:  7, r:-10 },
-  { x:  2, y: -5, r:  5 },
-  { x: -3, y:  3, r:-12 },
-  { x:  7, y:  2, r:  7 },
-  { x: -2, y: -6, r: -4 },
-  { x:  4, y:  6, r: 11 },
-];
+  function depth(i) { return (i - topIdx + n) % n; }
 
-const gCards = Array.from(document.querySelectorAll('#galleryDeck .polaroid'));
-
-function applyGallery(raw) {
-  const t = easeFan(Math.max(0, Math.min(1, raw)));
-  gCards.forEach((card, i) => {
-    const s = SPREAD[i], f = STACKED2[i];
-    const x = lerpFan(s.x, f.x, t);
-    const y = lerpFan(s.y, f.y, t);
-    const r = lerpFan(s.r, f.r, t);
-    card.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${r}deg)`;
-    card.style.zIndex = i + 1;
-  });
-}
-
-applyGallery(0); // initialise spread
-
-// gallery section: driven by its own inner scroller
-const galleryScroller = document.getElementById('galleryScroller');
-const gallerySection  = document.getElementById('gallery');
-let galleryAdvanced = false;
-
-galleryScroller.addEventListener('scroll', () => {
-  const max = galleryScroller.scrollHeight - galleryScroller.clientHeight;
-  const progress = max > 0 ? galleryScroller.scrollTop / max : 0;
-  applyGallery(progress);
-
-  // auto-advance to happiness once fully stacked
-  if (progress >= 0.96 && !galleryAdvanced) {
-    galleryAdvanced = true;
-    setTimeout(() => {
-      scroller.scrollTo({ top: document.getElementById('happiness').offsetTop, behavior: 'smooth' });
-    }, 350);
+  function stack(skipIdx) {
+    cards.forEach((card, i) => {
+      if (i === skipIdx) return;
+      const d     = depth(i);
+      const rot   = tilts[i] * (1 - d * 0.25);
+      const yOff  = d * 3;
+      const scale = 1 - d * 0.018;
+      const dim   = Math.max(1 - d * 0.10, 0.45);
+      card.style.transition = 'transform 0.48s cubic-bezier(0.22,1,0.36,1), filter 0.48s ease';
+      card.style.zIndex     = n - d;
+      card.style.transform  = `rotate(${rot}deg) translateY(${yOff}px) scale(${scale})`;
+      card.style.filter     = d === 0 ? 'none' : `brightness(${dim})`;
+    });
   }
-}, { passive: true });
 
-/*
- * Intercept wheel & touch events on the gallery section so the outer
- * snap-scroller never receives them while the animation is in progress.
- * The outer scroller only takes over at the two natural boundaries:
- *   – scrolling UP  when the inner scroller is already at the top  → go to previous section
- *   – scrolling DOWN after the animation has finished (galleryAdvanced) → go to next section
- */
-gallerySection.addEventListener('wheel', (e) => {
-  const atTop = galleryScroller.scrollTop <= 0;
-  if (galleryAdvanced) return; // hand off to outer (scroll to happiness)
-  if (atTop && e.deltaY < 0) {
-    // scrolling up at top — navigate to previous section (timeline)
+  async function dismiss() {
+    if (busy) return;
+    busy = true;
+    const card = cards[topIdx];
+    const rot  = tilts[topIdx];
+    const dir  = flipDir;
+    flipDir   *= -1;
+
+    const anim = card.animate([
+      { opacity: 1,   transform: `rotate(${rot}deg) translateX(0)`,                                      offset: 0    },
+      { opacity: 0.8, transform: `rotate(${rot + dir * 14}deg) translateX(${dir * 60}%)`,                offset: 0.38 },
+      { opacity: 0,   transform: `rotate(${rot + dir * 26}deg) translateX(${dir * 150}%) scale(0.91)`,   offset: 1    },
+    ], { duration: 500, easing: 'ease-in', fill: 'forwards' });
+
+    await anim.finished;
+    anim.cancel();
+    topIdx = (topIdx + 1) % n;
+    stack();
+    busy = false;
+  }
+
+  let timer = setInterval(dismiss, 2200);
+
+  function onTap(e) {
     e.preventDefault();
-    document.getElementById('timeline').scrollIntoView({ behavior: 'smooth' });
-    return;
+    clearInterval(timer);
+    dismiss();
+    timer = setInterval(dismiss, 2200);
   }
-  e.preventDefault();
-  galleryScroller.scrollTop += e.deltaY;
-}, { passive: false });
 
-let glTouchY = null;
-gallerySection.addEventListener('touchstart', (e) => {
-  glTouchY = e.touches[0].clientY;
-}, { passive: true });
-gallerySection.addEventListener('touchmove', (e) => {
-  if (glTouchY === null) return;
-  const dy = glTouchY - e.touches[0].clientY;
-  const atTop = galleryScroller.scrollTop <= 0;
-  if (galleryAdvanced) return; // hand off to outer (scroll to happiness)
-  if (atTop && dy < 0) {
-    // swiping up at top — navigate to previous section (timeline)
-    e.preventDefault();
-    glTouchY = null;
-    document.getElementById('timeline').scrollIntoView({ behavior: 'smooth' });
-    return;
-  }
-  e.preventDefault();
-  galleryScroller.scrollTop += dy;
-  glTouchY = e.touches[0].clientY;
-}, { passive: false });
-gallerySection.addEventListener('touchend', () => { glTouchY = null; }, { passive: true });
+  deck.addEventListener('click',      onTap);
+  deck.addEventListener('touchstart', onTap, { passive: false });
 
-// reset gallery when it comes back into view
-new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting) {
-    galleryAdvanced = false;
-    galleryScroller.scrollTop = 0;
-    applyGallery(0);
-  }
-}, { root: scroller, threshold: 0.5 }).observe(gallerySection);
+  stack(); // initial layout
+}());
 
 /* ── Fade-up ── */
 document.querySelectorAll('.fade-up').forEach(el => {
