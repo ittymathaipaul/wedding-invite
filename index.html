@@ -856,10 +856,6 @@
       inset: 0;
       z-index: 950;
       background: #0d1825;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       transition: opacity 0.9s ease;
@@ -869,18 +865,24 @@
 
     /* 3-D scene — perspective applied here so the flap rotates in 3-D */
     .env-scene {
+      position: absolute;
+      inset: 0;
       perspective: 900px;
       perspective-origin: center top;
     }
 
-    /* envelope wrapper — sized to body image aspect ratio (4800×2700) */
+    /* envelope wrapper — full screen, both images cover like object-fit:cover */
     .env-envelope {
-      position: relative;
-      width: min(88vw, calc(52dvh * (4800 / 2700)));
+      position: absolute;
+      inset: 0;
     }
 
     .env-body {
+      position: absolute;
+      inset: 0;
       width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
       user-select: none;
       pointer-events: none;
@@ -889,20 +891,17 @@
     /* centering shell — just positions the flap, does NOT rotate */
     .env-flap-center {
       position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      /* flap image is 5321 px wide vs body 4800 px → scale proportionally */
-      width: calc(100% * 5321 / 4800);
+      inset: 0;
     }
 
     /* rotating pivot — this is what folds open */
     .env-flap-pivot {
+      position: absolute;
+      inset: 0;
       transform-origin: top center;
       transform: rotateX(0deg);
       transition: transform 0.9s cubic-bezier(0.42, 0, 0.58, 1);
       backface-visibility: hidden;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45));
     }
     #env.env-open .env-flap-pivot {
       transform: rotateX(-180deg);
@@ -910,6 +909,8 @@
 
     .env-flap {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
       user-select: none;
       pointer-events: none;
@@ -918,7 +919,9 @@
 
     /* ── tap hint ── */
     #env-cta {
-      margin-top: clamp(18px, 3.5dvh, 32px);
+      position: absolute;
+      bottom: max(56px, calc(env(safe-area-inset-bottom, 0px) + 48px));
+      left: 0; right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
