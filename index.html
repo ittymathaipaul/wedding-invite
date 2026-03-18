@@ -1647,7 +1647,8 @@ const lb       = document.getElementById('lightbox');
 const lbImg    = document.getElementById('lb-img');
 const lbCounter = document.getElementById('lb-counter');
 let lbIndex = 0;
-const photoSrcs = Array.from(document.querySelectorAll('#galleryDeck .polaroid')).map(c => c.querySelector('img').src);
+const gCards    = Array.from(document.querySelectorAll('#galleryDeck .polaroid'));
+const photoSrcs = gCards.map(c => c.querySelector('img').src);
 
 function lbShow(i) {
   lbIndex = ((i % photoSrcs.length) + photoSrcs.length) % photoSrcs.length;
