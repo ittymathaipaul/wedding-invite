@@ -913,21 +913,6 @@
       text-align: center;
     }
 
-    #env-names {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(3rem, 13vw, 5.8rem);
-      color: #fff;
-      line-height: 1.1;
-      text-shadow: 0 2px 28px rgba(0,0,0,0.45);
-      opacity: 0;
-      animation: envNamesIn 1.5s ease 0.5s forwards;
-      margin-bottom: clamp(28px, 6vh, 44px);
-    }
-    .env-amp {
-      font-size: 0.62em;
-      color: #A6C8E6;
-    }
-
     #env-tap {
       display: flex;
       flex-direction: column;
@@ -935,8 +920,8 @@
       gap: 10px;
       opacity: 0;
       animation:
-        envTapAppear 1s ease 2s    forwards,
-        envTapPulse  2.8s ease-in-out 3s infinite;
+        envTapAppear 1s ease 0.8s  forwards,
+        envTapPulse  2.8s ease-in-out 1.8s infinite;
     }
     .env-tap-line {
       width: 26px; height: 1px;
@@ -951,10 +936,6 @@
       color: rgba(255,255,255,0.88);
     }
 
-    @keyframes envNamesIn {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
     @keyframes envTapAppear {
       from { opacity: 0; }
       to   { opacity: 1; }
@@ -971,12 +952,9 @@
 <!-- ── Envelope intro ── -->
 <div id="env" role="button" aria-label="Tap to open the invitation">
 
-  <!-- full-screen banner — swap src to any photo -->
-  <img id="env-banner" src="assets/banner" alt="" draggable="false" />
+  <img id="env-banner" src="assets/banner.png" alt="" draggable="false" />
 
-  <!-- couple name + tap-to-open text -->
   <div id="env-cta">
-    <p id="env-names">Ittymathew <span class="env-amp">&amp;</span> Rosemary</p>
     <div id="env-tap">
       <div class="env-tap-line"></div>
       <span>Tap to Open</span>
