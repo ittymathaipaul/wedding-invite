@@ -902,6 +902,7 @@
       transform: rotateX(0deg);
       transition: transform 0.9s cubic-bezier(0.42, 0, 0.58, 1);
       backface-visibility: hidden;
+      filter: drop-shadow(0 12px 32px rgba(0,0,0,0.6)) drop-shadow(0 4px 10px rgba(0,0,0,0.4));
     }
     #env.env-open .env-flap-pivot {
       transform: rotateX(-180deg);
@@ -962,12 +963,18 @@
 
   <div class="env-scene">
     <div class="env-envelope">
-      <!-- base: envelope body -->
-      <img class="env-body" src="assets/Envelope Body.png?v=2" alt="" draggable="false" />
+      <!-- base: envelope body — desktop vs mobile -->
+      <picture>
+        <source media="(max-width: 600px)" srcset="assets/mobile envelope.png?v=1" />
+        <img class="env-body" src="assets/Envelope Body.png?v=2" alt="" draggable="false" />
+      </picture>
       <!-- overlay: flap that folds open on tap -->
       <div class="env-flap-center">
         <div class="env-flap-pivot">
-          <img class="env-flap" src="assets/Flap.png?v=2" alt="" draggable="false" />
+          <picture>
+            <source media="(max-width: 600px)" srcset="assets/mobile flap.png?v=1" />
+            <img class="env-flap" src="assets/Flap.png?v=2" alt="" draggable="false" />
+          </picture>
         </div>
       </div>
     </div>
