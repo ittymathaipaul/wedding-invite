@@ -27,6 +27,8 @@
     *, *::before, *::after {
       margin: 0; padding: 0; box-sizing: border-box;
       user-select: none; -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
     }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
@@ -45,7 +47,12 @@
       scroll-snap-type: y mandatory;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-y: contain;
+      opacity: 0;
+      transition: opacity 1.2s ease;
     }
+    .page-container.content-ready { opacity: 1; }
+    .nav-dots { opacity: 0; transition: opacity 1.2s ease; }
+    .nav-dots.content-ready { opacity: 1; }
 
     section {
       min-height: 100dvh;
@@ -1574,7 +1581,13 @@ galleryScroller.addEventListener('scroll', () => {
  */
 gallerySection.addEventListener('wheel', (e) => {
   const atTop = galleryScroller.scrollTop <= 0;
-  if ((atTop && e.deltaY < 0) || galleryAdvanced) return; // hand off to outer
+  if (galleryAdvanced) return; // hand off to outer (scroll to happiness)
+  if (atTop && e.deltaY < 0) {
+    // scrolling up at top — navigate to previous section (timeline)
+    e.preventDefault();
+    document.getElementById('timeline').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
   e.preventDefault();
   galleryScroller.scrollTop += e.deltaY;
 }, { passive: false });
@@ -1587,7 +1600,14 @@ gallerySection.addEventListener('touchmove', (e) => {
   if (glTouchY === null) return;
   const dy = glTouchY - e.touches[0].clientY;
   const atTop = galleryScroller.scrollTop <= 0;
-  if ((atTop && dy < 0) || galleryAdvanced) return; // hand off to outer
+  if (galleryAdvanced) return; // hand off to outer (scroll to happiness)
+  if (atTop && dy < 0) {
+    // swiping up at top — navigate to previous section (timeline)
+    e.preventDefault();
+    glTouchY = null;
+    document.getElementById('timeline').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
   e.preventDefault();
   galleryScroller.scrollTop += dy;
   glTouchY = e.touches[0].clientY;
@@ -1700,15 +1720,12 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-/* ── Tap-to-copy phone numbers ── */
+/* ── Tap phone numbers → open WhatsApp ── */
 document.querySelectorAll('.phone-copy').forEach(el => {
+  el.style.cursor = 'pointer';
   el.addEventListener('click', () => {
-    const num = el.dataset.phone;
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(num).then(() => showToast('Copied!'));
-    } else {
-      showToast('Long-press to copy');
-    }
+    const num = el.dataset.phone.replace(/\D/g, ''); // strip + and spaces
+    window.open('https://wa.me/' + num, '_blank');
   });
 });
 /* ── Lightbox ── */
@@ -1761,11 +1778,13 @@ lb.addEventListener('touchend', e => {
 
     env.classList.add('env-open');
 
-    // once panels have swung open, fade out and remove
+    // once banner has fully dissolved, reveal content then remove overlay
     setTimeout(function () {
       env.classList.add('env-done');
-      setTimeout(function () { env.remove(); }, 1050);
-    }, 2200);
+      document.getElementById('scroller').classList.add('content-ready');
+      document.querySelector('.nav-dots').classList.add('content-ready');
+      setTimeout(function () { env.remove(); }, 1200);
+    }, 1600);
   }
 
   env.addEventListener('click',      openEnvelope);
