@@ -872,7 +872,8 @@
     #env.env-done  { opacity: 0; pointer-events: none; }
 
     /* single full-screen banner image */
-    #env-banner {
+    #env-banner,
+    #env-banner img {
       position: absolute;
       inset: 0;
       width: 100%; height: 100%;
@@ -880,6 +881,8 @@
       display: block;
       pointer-events: none;
       user-select: none;
+    }
+    #env-banner {
       /* slow zoom-in while dissolving for a cinematic feel */
       transition: transform 1.8s ease;
       transform: scale(1);
@@ -952,7 +955,10 @@
 <!-- ── Envelope intro ── -->
 <div id="env" role="button" aria-label="Tap to open the invitation">
 
-  <img id="env-banner" src="assets/banner.png" alt="" draggable="false" />
+  <picture id="env-banner">
+    <source srcset="assets/banner-mob.png" media="(max-width: 767px)" />
+    <img src="assets/banner.png" alt="" draggable="false" />
+  </picture>
 
   <div id="env-cta">
     <div id="env-tap">
