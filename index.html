@@ -1781,22 +1781,22 @@ lb.addEventListener('touchend', e => {
     if (opened) return;
     opened = true;
 
-    // 1. slowly lift flap just slightly (2.4 s to ~28 deg)
+    // 1. lift flap slightly (0.9s to -8deg)
     env.classList.add('env-open');
 
-    // 2. almost immediately start washing to white — happens while flap lifts
-    setTimeout(function () { env.classList.add('env-white'); }, 200);
+    // 2. start white wash right as flap finishes
+    setTimeout(function () { env.classList.add('env-white'); }, 850);
 
-    // 3. fade out overlay once white wash is complete
-    setTimeout(function () { env.classList.add('env-fade'); }, 1800);
+    // 3. fade out quickly after wash begins
+    setTimeout(function () { env.classList.add('env-fade'); }, 1100);
 
-    // 4. reveal content, then remove the node
+    // 4. reveal content right after fade
     setTimeout(function () {
       env.classList.add('env-done');
       document.getElementById('scroller').classList.add('content-ready');
       document.querySelector('.nav-dots').classList.add('content-ready');
-      setTimeout(function () { env.remove(); }, 400);
-    }, 2500);
+      setTimeout(function () { env.remove(); }, 300);
+    }, 1400);
   }
 
   env.addEventListener('click',      openEnvelope);
