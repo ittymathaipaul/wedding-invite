@@ -1787,8 +1787,8 @@ lb.addEventListener('touchend', e => {
     // 2. start white wash right as flap finishes
     setTimeout(function () { env.classList.add('env-white'); }, 850);
 
-    // 3. fade out quickly after wash begins
-    setTimeout(function () { env.classList.add('env-fade'); }, 1100);
+    // 3. fade out after white holds for a moment
+    setTimeout(function () { env.classList.add('env-fade'); }, 1550);
 
     // 4. reveal content right after fade
     setTimeout(function () {
@@ -1796,7 +1796,7 @@ lb.addEventListener('touchend', e => {
       document.getElementById('scroller').classList.add('content-ready');
       document.querySelector('.nav-dots').classList.add('content-ready');
       setTimeout(function () { env.remove(); }, 300);
-    }, 1400);
+    }, 1850);
   }
 
   env.addEventListener('click',      openEnvelope);
