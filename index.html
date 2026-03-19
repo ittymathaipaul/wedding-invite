@@ -882,7 +882,7 @@
       background: #0d1825;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: opacity 0.8s ease, background-color 1.6s ease;
+      transition: opacity 2.2s ease, background-color 1.6s ease;
       overflow: visible;
     }
     #env.env-white { background: #ffffff; }
@@ -1784,19 +1784,21 @@ lb.addEventListener('touchend', e => {
     // 1. lift flap slightly (0.9s to -8deg)
     env.classList.add('env-open');
 
+    // 1b. start fading in card content immediately on tap
+    document.getElementById('scroller').classList.add('content-ready');
+    document.querySelector('.nav-dots').classList.add('content-ready');
+
     // 2. start white wash right as flap finishes
     setTimeout(function () { env.classList.add('env-white'); }, 850);
 
-    // 3. fade out after white holds for a moment
+    // 3. fade out slowly after white holds
     setTimeout(function () { env.classList.add('env-fade'); }, 1550);
 
-    // 4. reveal content right after fade
+    // 4. remove envelope after slow fade completes (~2.2s fade)
     setTimeout(function () {
       env.classList.add('env-done');
-      document.getElementById('scroller').classList.add('content-ready');
-      document.querySelector('.nav-dots').classList.add('content-ready');
       setTimeout(function () { env.remove(); }, 300);
-    }, 1850);
+    }, 3900);
   }
 
   env.addEventListener('click',      openEnvelope);
