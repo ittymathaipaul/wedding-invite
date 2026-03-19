@@ -939,15 +939,17 @@
     }
 
     .env-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
       user-select: none;
       pointer-events: none;
     }
     @media (max-width: 600px) {
-      .env-flap { height: 78%; }
+      .env-flap { height: 78%; width: 100%; position: static; }
     }
 
     /* ── tap hint ── */
