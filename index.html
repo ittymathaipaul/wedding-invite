@@ -1791,14 +1791,15 @@ lb.addEventListener('touchend', e => {
     // 2. start white wash right as flap finishes
     setTimeout(function () { env.classList.add('env-white'); }, 850);
 
-    // 3. fade out slowly after white holds
-    setTimeout(function () { env.classList.add('env-fade'); }, 1550);
+    // 3. wait for white to fully complete (850ms start + 1600ms transition = 2450ms)
+    //    then hold briefly before fading
+    setTimeout(function () { env.classList.add('env-fade'); }, 2600);
 
-    // 4. remove envelope after slow fade completes (~2.2s fade)
+    // 4. remove envelope after slow fade completes (2.2s fade from 2600ms = ~4800ms)
     setTimeout(function () {
       env.classList.add('env-done');
       setTimeout(function () { env.remove(); }, 300);
-    }, 3900);
+    }, 5000);
   }
 
   env.addEventListener('click',      openEnvelope);
