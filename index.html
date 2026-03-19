@@ -30,7 +30,7 @@
       -webkit-tap-highlight-color: transparent;
       outline: none;
     }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--cream); }
 
     body {
       background: var(--cream);
@@ -47,6 +47,7 @@
       scroll-snap-type: y mandatory;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-y: contain;
+      background: var(--cream);
       opacity: 0;
       transition: opacity 1.2s ease;
     }
@@ -1788,18 +1789,17 @@ lb.addEventListener('touchend', e => {
     document.getElementById('scroller').classList.add('content-ready');
     document.querySelector('.nav-dots').classList.add('content-ready');
 
-    // 2. start white wash right as flap finishes
-    setTimeout(function () { env.classList.add('env-white'); }, 850);
+    // 2. white starts immediately as flap begins moving (1.6s transition)
+    env.classList.add('env-white');
 
-    // 3. wait for white to fully complete (850ms start + 1600ms transition = 2450ms)
-    //    then hold briefly before fading
-    setTimeout(function () { env.classList.add('env-fade'); }, 2600);
+    // 3. white fully complete at ~1600ms, hold briefly then fade
+    setTimeout(function () { env.classList.add('env-fade'); }, 1800);
 
-    // 4. remove envelope after slow fade completes (2.2s fade from 2600ms = ~4800ms)
+    // 4. remove envelope after slow fade completes (2.2s fade from 1800ms = ~4000ms)
     setTimeout(function () {
       env.classList.add('env-done');
       setTimeout(function () { env.remove(); }, 300);
-    }, 5000);
+    }, 4200);
   }
 
   env.addEventListener('click',      openEnvelope);
