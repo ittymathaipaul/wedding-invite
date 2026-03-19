@@ -192,7 +192,7 @@
 
     .photos-label {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.44rem, 1.4vw, 0.5rem);
+      font-size: clamp(0.68rem, 2.2vw, 0.76rem);
       letter-spacing: 0.24em; text-transform: uppercase;
       color: var(--blue-light); text-align: center;
       opacity: 0.6;
@@ -267,7 +267,7 @@
     }
     .pc-role {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.48rem, 1.6vw, 0.56rem);
+      font-size: clamp(0.7rem, 2.2vw, 0.78rem);
       font-weight: 500;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -450,10 +450,17 @@
       font-size: clamp(1rem, 3.5vw, 1.15rem);
       color: var(--blue); cursor: pointer;
       text-decoration: none;
-      transition: background 0.16s, transform 0.12s;
+      transition: background 0.16s, transform 0.12s, box-shadow 0.16s;
       -webkit-tap-highlight-color: transparent;
     }
-    .sheet-opt:active { background: rgba(26,44,71,0.1); transform: scale(0.98); }
+    /* staggered gentle lift to signal these are tappable */
+    .sheet-opt:nth-child(1) { animation: optAppear 0.4s ease 0.1s both; }
+    .sheet-opt:nth-child(2) { animation: optAppear 0.4s ease 0.22s both; }
+    @keyframes optAppear {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .sheet-opt:active { background: rgba(26,44,71,0.1); transform: scale(0.97); box-shadow: 0 2px 12px rgba(26,44,71,0.08); }
 
     .sheet-opt-ico {
       width: 38px; height: 38px; border-radius: 10px;
@@ -514,7 +521,7 @@
       border: 1px solid rgba(142,177,209,0.28);
       background: rgba(142,177,209,0.06);
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.6rem, 2vw, 0.68rem);
+      font-size: clamp(0.72rem, 2.4vw, 0.8rem);
       letter-spacing: 0.07em;
       color: rgba(255,255,255,0.9);
       transition: background 0.18s, transform 0.14s;
@@ -689,10 +696,20 @@
       border-radius: 12px;
       padding: 8px 10px;
       text-decoration: none;
-      transition: background 0.2s;
-      min-height: 44px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      min-height: 48px;
     }
-    .tl-location:active { background: rgba(26,44,71,0.08); }
+    .tl-location:active {
+      background: rgba(26,44,71,0.08);
+      transform: scale(0.97);
+    }
+    /* arrow nudge hint — repeats to signal tappability */
+    .tl-loc-dir { animation: dirNudge 2.8s ease-in-out 1.5s infinite; }
+    @keyframes dirNudge {
+      0%, 80%, 100% { transform: translateX(0); }
+      88%           { transform: translateX(4px); }
+      94%           { transform: translateX(1px); }
+    }
 
     .tl-loc-thumb {
       width: 48px; height: 48px;
@@ -714,16 +731,16 @@
     }
     .tl-loc-addr {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.44rem, 1.5vw, 0.52rem);
+      font-size: clamp(0.65rem, 2.2vw, 0.72rem);
       letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--blue-light);
     }
     .tl-loc-dir {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.46rem, 1.5vw, 0.54rem);
+      font-size: clamp(0.68rem, 2.2vw, 0.76rem);
       font-weight: 500; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--gold);
-      margin-top: 2px;
+      margin-top: 3px; display: inline-block;
     }
 
     /* ════════════════════════════════════════════
@@ -747,44 +764,12 @@
     }
     .hp-relation {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.44rem, 1.5vw, 0.52rem);
+      font-size: clamp(0.68rem, 2.2vw, 0.76rem);
       font-weight: 400; letter-spacing: 0.14em;
       text-transform: uppercase; color: var(--blue-light);
       margin-top: -3px;
     }
 
-    /* ════════════════════════════════════════════
-       S2  ·  Verse (bible verse section)
-       ════════════════════════════════════════════ */
-    #verse { text-align: center; gap: clamp(20px, 4dvh, 36px); }
-
-    .verse-ornament {
-      display: flex; align-items: center; gap: 14px;
-      opacity: 0.55;
-    }
-    .verse-ornament-line {
-      width: clamp(40px, 12vw, 70px); height: 1px;
-      background: var(--blue-light);
-    }
-
-    .verse-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.45rem, 5.5vw, 2.1rem);
-      color: var(--blue);
-      line-height: 1.75;
-      text-align: center;
-      max-width: min(340px, 88vw);
-    }
-    .verse-ref {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.72rem, 2.4vw, 0.84rem);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--blue-light);
-    }
-
-    /* kept for happiness section fallback */
     .psalm-block {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic; color: var(--blue-light);
@@ -1085,7 +1070,6 @@
 
 <nav class="nav-dots" aria-label="Page navigation">
   <div class="nav-dot active" data-target="intro"     title="Introduction"></div>
-  <div class="nav-dot"        data-target="verse"     title="Bible Verse"></div>
   <div class="nav-dot"        data-target="parents"   title="Parents"></div>
   <div class="nav-dot"        data-target="countdown" title="Date &amp; Countdown"></div>
   <div class="nav-dot"        data-target="timeline"  title="Timeline"></div>
@@ -1143,6 +1127,19 @@
       We would love to invite you to celebrate<br>with us the most special day of our lives.
     </p>
 
+    <p class="fade-up" style="
+        font-family:'Cormorant Garamond',serif;
+        font-style:italic;
+        font-size:clamp(0.82rem,2.8vw,0.96rem);
+        color:var(--blue-light);
+        text-align:center;
+        line-height:1.75;
+        opacity:0.8;
+        transition-delay:0.78s">
+      "This is the Lord's doing; it is marvellous in our eyes"<br>
+      <span style="font-family:'Montserrat',sans-serif;font-style:normal;font-size:clamp(0.65rem,2.2vw,0.74rem);letter-spacing:0.18em;text-transform:uppercase;">— Psalms 118 : 23</span>
+    </p>
+
     <div class="scroll-caret">
       <span>Scroll</span>
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 1L7 7L13 1" stroke="#8EB1D1" stroke-width="1.4" stroke-linecap="round"/></svg>
@@ -1150,52 +1147,7 @@
   </section>
 
   <!-- ══════════════════════════════
-       S2  ·  Bible Verse
-       ══════════════════════════════ -->
-  <section id="verse">
-
-    <div class="petals-layer" aria-hidden="true">
-      <svg class="petal" width="11" viewBox="0 0 15 22" style="left:8%;animation-delay:1s;animation-duration:12s;opacity:.13"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#8EB1D1"/></svg>
-      <svg class="petal" width="9"  viewBox="0 0 12 19" style="left:25%;animation-delay:5s;animation-duration:14s;opacity:.10"><path d="M6 1C10 3 11 8 6 17 1 8 2 3 6 1Z" fill="#A6C8E6"/></svg>
-      <svg class="petal" width="38" viewBox="0 0 16 21" style="left:55%;animation-delay:3s;animation-duration:11s;opacity:.09"><path d="M8 .5C14 4 14 12 8 20.5 2 12 2 4 8 .5Z" fill="#8EB1D1"/></svg>
-      <svg class="petal" width="10" viewBox="0 0 15 22" style="left:78%;animation-delay:8s;animation-duration:13s;opacity:.11"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#A6C8E6"/></svg>
-    </div>
-
-    <!-- ornamental cross -->
-    <div class="fade-up" style="transition-delay:0.08s;display:flex;flex-direction:column;align-items:center;gap:0;opacity:0.45">
-      <svg width="28" height="44" viewBox="0 0 28 44" fill="none">
-        <rect x="12" y="0"  width="4" height="44" rx="2" fill="var(--blue-light)"/>
-        <rect x="0"  y="14" width="28" height="4"  rx="2" fill="var(--blue-light)"/>
-      </svg>
-    </div>
-
-    <div class="verse-ornament fade-up" style="transition-delay:0.18s">
-      <div class="verse-ornament-line"></div>
-      <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" fill="none" stroke="var(--blue-light)" stroke-width="1.2"/></svg>
-      <div class="verse-ornament-line"></div>
-    </div>
-
-    <p class="verse-text fade-up" style="transition-delay:0.32s">
-      "This is the Lord's doing;<br>it is marvellous in our eyes"
-    </p>
-
-    <span class="verse-ref fade-up" style="transition-delay:0.48s">Psalms 118 : 23</span>
-
-    <div class="verse-ornament fade-up" style="transition-delay:0.58s">
-      <div class="verse-ornament-line"></div>
-      <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" fill="none" stroke="var(--blue-light)" stroke-width="1.2"/></svg>
-      <div class="verse-ornament-line"></div>
-    </div>
-
-    <div class="scroll-caret">
-      <span>Scroll</span>
-      <svg width="16" height="10" viewBox="0 0 14 9" fill="none"><path d="M1 1L7 7L13 1" stroke="#8EB1D1" stroke-width="1.5" stroke-linecap="round"/></svg>
-    </div>
-
-  </section>
-
-  <!-- ══════════════════════════════
-       S3  ·  Parents
+       S2  ·  Parents
        ══════════════════════════════ -->
   <section id="parents">
 
@@ -1448,7 +1400,7 @@
 
     <p class="fade-up" style="
         font-family:'Montserrat',sans-serif;
-        font-size:clamp(0.52rem,1.6vw,0.58rem);
+        font-size:clamp(0.72rem,2.2vw,0.8rem);
         letter-spacing:0.28em;text-transform:uppercase;
         color:var(--blue-light);text-align:center;
         transition-delay:0.05s">
@@ -1527,7 +1479,7 @@
 
     <!-- Contact -->
     <div class="fade-up" style="text-align:center;transition-delay:0.44s">
-      <p style="font-family:'Montserrat',sans-serif;font-size:clamp(0.46rem,1.6vw,0.54rem);letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-light);margin-bottom:5px;">Contact</p>
+      <p style="font-family:'Montserrat',sans-serif;font-size:clamp(0.7rem,2.2vw,0.78rem);letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-light);margin-bottom:5px;">Contact</p>
       <div style="display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin-top:6px">
         <span class="phone-copy" data-phone="+919447731698">
           <span class="phone-icon">
@@ -1626,7 +1578,7 @@
 
 <script>
 /* ── Nav dots ── */
-const SECTIONS      = ['intro','verse','parents','countdown','timeline','gallery','happiness'];
+const SECTIONS      = ['intro','parents','countdown','timeline','gallery','happiness'];
 const DARK_SECTIONS = new Set(['intro','happiness']);
 const dots          = document.querySelectorAll('.nav-dot');
 const navDots       = document.querySelector('.nav-dots');
