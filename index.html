@@ -883,10 +883,20 @@
       background: #0d1825;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: opacity 2.2s ease, background-color 1.6s ease;
+      transition: opacity 2s ease;
       overflow: visible;
     }
-    #env.env-white { background: #ffffff; }
+    /* white flash overlay — sits above envelope images */
+    #env-flash {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      background: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+    #env.env-white #env-flash { opacity: 1; }
     #env.env-fade { opacity: 0; pointer-events: none; }
     #env.env-done { display: none; }
 
@@ -1022,6 +1032,8 @@
       </div>
     </div>
   </div>
+
+  <div id="env-flash" aria-hidden="true"></div>
 
   <div id="env-cta">
     <div class="env-tap-line"></div>
@@ -1782,24 +1794,24 @@ lb.addEventListener('touchend', e => {
     if (opened) return;
     opened = true;
 
-    // 1. lift flap slightly (0.9s to -8deg)
+    // 1. lift flap
     env.classList.add('env-open');
 
-    // 1b. start fading in card content immediately on tap
-    document.getElementById('scroller').classList.add('content-ready');
-    document.querySelector('.nav-dots').classList.add('content-ready');
+    // 2. white flash overlay fades in fast (0.45s) — right as flap lifts
+    setTimeout(function () { env.classList.add('env-white'); }, 200);
 
-    // 2. white starts immediately as flap begins moving (1.6s transition)
-    env.classList.add('env-white');
+    // 3. white is solid at ~650ms — now reveal content and start fading envelope
+    setTimeout(function () {
+      document.getElementById('scroller').classList.add('content-ready');
+      document.querySelector('.nav-dots').classList.add('content-ready');
+      env.classList.add('env-fade'); // 2s fade-out
+    }, 700);
 
-    // 3. white fully complete at ~1600ms, hold briefly then fade
-    setTimeout(function () { env.classList.add('env-fade'); }, 1800);
-
-    // 4. remove envelope after slow fade completes (2.2s fade from 1800ms = ~4000ms)
+    // 4. remove after fade completes (700ms + 2000ms + buffer)
     setTimeout(function () {
       env.classList.add('env-done');
       setTimeout(function () { env.remove(); }, 300);
-    }, 4200);
+    }, 3000);
   }
 
   env.addEventListener('click',      openEnvelope);
