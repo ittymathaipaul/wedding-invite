@@ -495,8 +495,31 @@
     /* ─── Press states ───────────────────────── */
     .parent-card { transition: transform 0.12s, box-shadow 0.12s; }
     .parent-card:active { transform: scale(0.97); box-shadow: 0 1px 6px rgba(26,44,71,0.1); }
-    .phone-copy { cursor: pointer; transition: opacity 0.15s; }
-    .phone-copy:active { opacity: 0.6; }
+    .phone-copy {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 20px 10px 14px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(142,177,209,0.45);
+      background: rgba(142,177,209,0.10);
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.7rem, 2.4vw, 0.78rem);
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      transition: background 0.18s, transform 0.14s;
+      text-decoration: none;
+    }
+    .phone-copy:active { background: rgba(142,177,209,0.22); transform: scale(0.96); }
+    .phone-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .phone-icon svg { display: block; }
 
     /* ════════════════════════════════════════════
        SECTION BACKGROUNDS & TEXT CONTRAST
@@ -858,7 +881,7 @@
       background: #0d1825;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: opacity 0.7s ease, background-color 1.2s ease;
+      transition: opacity 0.8s ease, background-color 1.6s ease;
       overflow: visible;
     }
     #env.env-white { background: #ffffff; }
@@ -904,7 +927,7 @@
       inset: 0;
       transform-origin: top center;
       transform: rotateX(0deg);
-      transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 2.4s cubic-bezier(0.25, 0.1, 0.25, 1);
       transform-style: preserve-3d;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
@@ -912,7 +935,7 @@
       filter: drop-shadow(0 12px 32px rgba(0,0,0,0.6)) drop-shadow(0 4px 10px rgba(0,0,0,0.4));
     }
     #env.env-open .env-flap-pivot {
-      transform: rotateX(-180deg);
+      transform: rotateX(-28deg);
     }
 
     .env-flap {
@@ -1317,6 +1340,18 @@
       <svg class="petal" width="9"  viewBox="0 0 15 22" style="left:88%;animation-delay:2s;animation-duration:13.5s;opacity:.08"><path d="M7.5 1C11 4 12.5 10 7.5 20 2.5 10 4 4 7.5 1Z" fill="#A6C8E6"/></svg>
     </div>
 
+    <p class="fade-up" style="
+        font-family:'Montserrat',sans-serif;
+        font-size:clamp(0.52rem,1.6vw,0.58rem);
+        letter-spacing:0.28em;text-transform:uppercase;
+        color:var(--blue-light);text-align:center;
+        transition-delay:0.05s">
+      Cherished Moments
+    </p>
+    <div class="names-stack fade-up" style="transition-delay:0.15s;margin-bottom:clamp(10px,2dvh,18px)">
+      <span style="font-family:'Great Vibes',cursive;font-size:clamp(2rem,8vw,2.8rem);color:var(--blue);line-height:1.1">Our Story</span>
+    </div>
+
     <div class="photo-deck" id="galleryDeck">
       <div class="polaroid"><img src="Photos/9.jpeg"  alt="Ittymathew &amp; Rosemary"/></div>
       <div class="polaroid"><img src="Photos/8.jpg"   alt="Ittymathew &amp; Rosemary"/></div>
@@ -1387,11 +1422,24 @@
     <!-- Contact -->
     <div class="fade-up" style="text-align:center;transition-delay:0.44s">
       <p style="font-family:'Montserrat',sans-serif;font-size:clamp(0.46rem,1.6vw,0.54rem);letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-light);margin-bottom:5px;">Contact</p>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(0.92rem,3.2vw,1.1rem);color:var(--blue);line-height:2;">
-        <span class="phone-copy" data-phone="+919447731698">+91 94477 31698</span>
-        &nbsp;·&nbsp;
-        <span class="phone-copy" data-phone="+919944845735">+91 99448 45735</span>
-      </p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:6px">
+        <span class="phone-copy" data-phone="+919447731698">
+          <span class="phone-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.39 21 3 13.61 3 4.5a1 1 0 0 1 1-1H7.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.21 2.2Z" fill="#ffffff"/>
+            </svg>
+          </span>
+          +91 94477 31698
+        </span>
+        <span class="phone-copy" data-phone="+919944845735">
+          <span class="phone-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.39 21 3 13.61 3 4.5a1 1 0 0 1 1-1H7.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.21 2.2Z" fill="#ffffff"/>
+            </svg>
+          </span>
+          +91 99448 45735
+        </span>
+      </div>
     </div>
 
     <div class="divider fade-up" style="transition-delay:0.54s">
@@ -1724,14 +1772,14 @@ lb.addEventListener('touchend', e => {
     if (opened) return;
     opened = true;
 
-    // 1. flip the flap open (1.8 s rotateX transition)
+    // 1. slowly lift flap just slightly (2.4 s to ~28 deg)
     env.classList.add('env-open');
 
-    // 2. midway through the flip, start fading background to white
-    setTimeout(function () { env.classList.add('env-white'); }, 600);
+    // 2. almost immediately start washing to white — happens while flap lifts
+    setTimeout(function () { env.classList.add('env-white'); }, 200);
 
-    // 3. once flip + white transition are done, fade out the overlay
-    setTimeout(function () { env.classList.add('env-fade'); }, 1900);
+    // 3. fade out overlay once white wash is complete
+    setTimeout(function () { env.classList.add('env-fade'); }, 1800);
 
     // 4. reveal content, then remove the node
     setTimeout(function () {
@@ -1739,7 +1787,7 @@ lb.addEventListener('touchend', e => {
       document.getElementById('scroller').classList.add('content-ready');
       document.querySelector('.nav-dots').classList.add('content-ready');
       setTimeout(function () { env.remove(); }, 400);
-    }, 2600);
+    }, 2500);
   }
 
   env.addEventListener('click',      openEnvelope);
