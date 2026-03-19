@@ -858,7 +858,7 @@
       background: #0d1825;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: opacity 0.6s ease, background-color 0.5s ease;
+      transition: opacity 0.7s ease, background-color 1.2s ease;
       overflow: visible;
     }
     #env.env-white { background: #ffffff; }
@@ -904,7 +904,7 @@
       inset: 0;
       transform-origin: top center;
       transform: rotateX(0deg);
-      transition: transform 1.0s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
@@ -1724,14 +1724,14 @@ lb.addEventListener('touchend', e => {
     if (opened) return;
     opened = true;
 
-    // 1. flip the flap open (1.0 s rotateX transition)
+    // 1. flip the flap open (1.8 s rotateX transition)
     env.classList.add('env-open');
 
-    // 2. as flap completes, flash to white
-    setTimeout(function () { env.classList.add('env-white'); }, 950);
+    // 2. midway through the flip, start fading background to white
+    setTimeout(function () { env.classList.add('env-white'); }, 600);
 
-    // 3. brief white hold, then fade out
-    setTimeout(function () { env.classList.add('env-fade'); }, 1350);
+    // 3. once flip + white transition are done, fade out the overlay
+    setTimeout(function () { env.classList.add('env-fade'); }, 1900);
 
     // 4. reveal content, then remove the node
     setTimeout(function () {
@@ -1739,7 +1739,7 @@ lb.addEventListener('touchend', e => {
       document.getElementById('scroller').classList.add('content-ready');
       document.querySelector('.nav-dots').classList.add('content-ready');
       setTimeout(function () { env.remove(); }, 400);
-    }, 1950);
+    }, 2600);
   }
 
   env.addEventListener('click',      openEnvelope);
